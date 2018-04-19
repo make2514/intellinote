@@ -1,0 +1,72 @@
+.idea
+out
+*.iml
+*.ipr
+*.iws
+.DS_Store
+
+bin/test/
+
+# .gitignore NetBeans Gradle projects
+# NetBeans
+.nb-gradle/
+
+# Gradle files
+.gradle/
+
+#Gradle build files (also jetty-runner)
+build/
+
+#Webapp runner (Tomcat) build files
+target/
+
+#Log files
+logs/
+
+# visual studio code files
+.vscode/
+
+gradlew
+gradlew.bat
+
+*#
+*.iml
+*.ipr
+*.iws
+*.jar
+*.sw?
+*~
+.#*
+.*.md.html
+.DS_Store
+.classpath
+.factorypath
+.gradle
+.idea
+.metadata
+.project
+.recommenders
+.settings
+.springBeans
+/build
+/code
+MANIFEST.MF
+_site/
+activemq-data
+bin
+build
+build.log
+dependency-reduced-pom.xml
+dump.rdb
+interpolated*.xml
+lib/
+manifest.yml
+overridedb.*
+settings.xml
+target
+transaction-logs
+.flattened-pom.xml
+secrets.yml
+.gradletasknamecache
+.sts4-cache
+src/main/resources/application.properties
