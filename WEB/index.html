@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+
+    <section class="container-fluid" id="main-section">
+        <h1>IntelliNote</h1>
+        <div class="text-options">
+
+            <button type="button" class="btn glyphicon glyphicon-file flex-item"></button>
+            <button type="button" class="btn glyphicon glyphicon-floppy-save flex-item"></button>
+            <button type="button" class="btn glyphicon glyphicon-folder-open flex-item"></button>
+            <button type="button" class="btn glyphicon glyphicon-print flex-item"></button>
+            <button type="button" class="btn glyphicon glyphicon-font flex-item"></button>
+            <button type="button" class="btn glyphicon glyphicon-bold flex-item"></button>
+            <button type="button" class="btn glyphicon glyphicon-italic flex-item"></button>
+            <div class="dropdown">
+                <button class="font-size btn  dropdown-toggle" type="button" data-toggle="dropdown">Font size 
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">10</a></li>
+                    <li><a href="#">12</a></li>
+                    <li><a href="#">14</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <textarea class="form-control" rows="20" id="text-area"></textarea>
+        <aside class="pre-scrollable container" id="article-container">
+            <p class="article">
+                A relevant article.
+            </p>
+        </aside>
+    </section>
+    <footer class="container-fluid"> Summer Team &copy;</footer>
+</body>
+
+</html>
