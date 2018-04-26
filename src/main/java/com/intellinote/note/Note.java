@@ -1,5 +1,6 @@
-package model;
+package com.intellinote.note;
 
+import com.intellinote.keyword.Keyword;
 import java.util.LinkedList;
 import java.util.List;
 

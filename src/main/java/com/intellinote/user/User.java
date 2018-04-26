@@ -1,5 +1,6 @@
-package model;
+package com.intellinote.user;
 
+import com.intellinote.note.Note;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
