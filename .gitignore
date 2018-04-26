@@ -26,9 +26,6 @@ logs/
 # visual studio code files
 .vscode/
 
-gradlew
-gradlew.bat
-
 *#
 *.iml
 *.ipr
@@ -70,3 +67,4 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 src/main/resources/application.properties
+!gradle/wrapper/gradle-wrapper.jar
