@@ -26,9 +26,6 @@ logs/
 # visual studio code files
 .vscode/
 
-gradlew
-gradlew.bat
-
 *#
 *.iml
 *.ipr
