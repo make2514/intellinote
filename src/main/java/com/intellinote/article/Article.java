@@ -1,33 +1,55 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.intellinote.article;
 
-import com.intellinote.keyword.Keyword;
+import com.intellinote.note.Note;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+/**
+ *
+ * @author minhdao
+ */
+@Entity
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Article {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-    private String header;
+    private String name;
     private String link;
     private String description;
-    @ManyToOne
-    private Keyword keyword;
-
-    public Article() {
+    
+//    @ManyToMany(mappedBy="articles")
+////    @JsonBackReference
+//    private Set<Note> notes = new HashSet<>();
+    
+    public Article(){
+        
     }
 
-    public Article(int id, String header, String link, String description, Keyword keyword) {
+    public Article(int id, String name, String link, String description) {
         this.id = id;
-        this.header = header;
+        this.name = name;
         this.link = link;
         this.description = description;
-        this.keyword = keyword;
     }
-
+    
     public int getId() {
         return id;
     }
@@ -37,11 +59,11 @@ public class Article {
     }
 
     public String getName() {
-        return header;
+        return name;
     }
 
-    public void setName(String header) {
-        this.header = header;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLink() {
@@ -60,13 +82,16 @@ public class Article {
         this.description = description;
     }
 
-    public Keyword getKeyword() {
-        return keyword;
-    }
+//    public Set<Note> getNotes() {
+//        return notes;
+//    }
+//
+//    public void setNotes(Set<Note> notes) {
+//        this.notes = notes;
+//    }
+//    
+//    public void addNote(Note note){
+//        this.notes.add(note);
+//    }
 
-    public void setKeyword(Keyword keyword) {
-        this.keyword = keyword;
-    }
-    
-    
 }

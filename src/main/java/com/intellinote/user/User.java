@@ -13,16 +13,15 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @NotNull
     private String username;
-    @NotNull
     private String password;
     
     public User(){
         
     }
 
-    public User(String username, String password) {
+    public User(int id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
     }

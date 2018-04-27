@@ -1,13 +1,20 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.intellinote.note;
 
-import com.intellinote.keyword.Keyword;
+import com.intellinote.article.Article;
 import com.intellinote.user.User;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +29,7 @@ import javax.persistence.ManyToOne;
  * @author minhdao
  */
 @Entity
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Note {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -30,12 +38,14 @@ public class Note {
     private String path;
     
     @ManyToOne
+//    @JsonBackReference
     private User user;
     
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="note_keyword", joinColumns = @JoinColumn(name = "note_id", referencedColumnName = "id"), 
-            inverseJoinColumns = @JoinColumn(name = "keyword_id", referencedColumnName = "id"))
-    private Set<Keyword> keywords = new HashSet<>();
+    @JoinTable(name="note_article", joinColumns = @JoinColumn(name = "note_id", referencedColumnName = "id"), 
+            inverseJoinColumns = @JoinColumn(name = "article_id", referencedColumnName = "id"))
+//    @JsonManagedReference
+    private Set<Article> articles = new HashSet<>();
     
     public Note(){
         
@@ -80,12 +90,12 @@ public class Note {
         this.user = user;
     }
 
-    public Set<Keyword> getKeywords() {
-        return keywords;
+    public Set<Article> getArticles() {
+        return articles;
     }
 
-    public void setKeywords(Set<Keyword> keywords) {
-        this.keywords = keywords;
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
     }
     
     
