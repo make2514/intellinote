@@ -41,18 +41,6 @@ dependencies {
 
 }
 
-//Include the jetty runner into the build/server folder
-task copyToLib(type: Copy) {
-    into "$buildDir/server"				//Default $buildDir is build/
-    from(configurations.compileOnly) {	//Note the use of the name of dependency 
-        include "jetty-runner*"			// configuration "compileOnly"
-        rename { String fileName -> 		//Forget the version # from filename
-"jetty-runner.jar"   
-        }
-    }
-}
-
 //Add to task stage that Heroku to prepare deployment
-task stage {
-    dependsOn clean, copyToLib 
-}
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
