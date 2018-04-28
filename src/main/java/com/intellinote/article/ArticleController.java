@@ -49,20 +49,32 @@ public class ArticleController {
         return ar.findById(id);
     }
     
-    @PostMapping
-    public void addArticle(@RequestBody Article article, @PathVariable int userId, @PathVariable int noteId){
-        
-        Article a = ar.findByLink(article.getLink());
+    @PostMapping("/add")
+    public void addArticle(@RequestBody List<Article> articles, @PathVariable int userId, @PathVariable int noteId){
         Note note = nr.getOne(noteId);
-        
-        if(a == null){
-            ar.save(article);
-            note.getArticles().add(article);
-        }else{
-            note.getArticles().add(a);
-        }
+        articles.forEach(article -> {
+            Article a = ar.findByLink(article.getLink());
+            if(a == null){
+                ar.save(article);
+                note.getArticles().add(article);
+            }else{
+                note.getArticles().add(a);
+            }
+        });
         nr.save(note);
         
+    }
+    
+    @PostMapping("/remove")
+    public void removeArticleFromNote(@RequestBody List<Article> articles, @PathVariable int userId, @PathVariable int noteId){
+        Note note = nr.getOne(noteId);        
+        articles.forEach(article -> {
+            Article a = ar.findByLink(article.getLink());
+            if(a != null){
+                note.getArticles().remove(a);
+            }
+        });
+        nr.save(note);
     }
     
     @PutMapping("/{id}")

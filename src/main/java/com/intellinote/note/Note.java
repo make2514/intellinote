@@ -5,16 +5,16 @@
  */
 package com.intellinote.note;
 
-import com.intellinote.article.Article;
-import com.intellinote.user.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.intellinote.article.Article;
+import com.intellinote.user.User;
+
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.CascadeType;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +38,6 @@ public class Note {
     private String path;
     
     @ManyToOne
-//    @JsonBackReference
     private User user;
     
     @ManyToMany(cascade = CascadeType.ALL)
@@ -97,6 +96,5 @@ public class Note {
     public void setArticles(Set<Article> articles) {
         this.articles = articles;
     }
-    
     
 }

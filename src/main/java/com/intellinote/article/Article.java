@@ -5,11 +5,10 @@
  */
 package com.intellinote.article;
 
-import com.intellinote.note.Note;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.intellinote.note.Note;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +35,7 @@ public class Article {
     private String description;
     
 //    @ManyToMany(mappedBy="articles")
-////    @JsonBackReference
+//    @JsonBackReference
 //    private Set<Note> notes = new HashSet<>();
     
     public Article(){
@@ -88,10 +87,6 @@ public class Article {
 //
 //    public void setNotes(Set<Note> notes) {
 //        this.notes = notes;
-//    }
-//    
-//    public void addNote(Note note){
-//        this.notes.add(note);
 //    }
 
 }

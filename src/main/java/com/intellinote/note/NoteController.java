@@ -5,10 +5,14 @@
  */
 package com.intellinote.note;
 
+import com.intellinote.article.Article;
+import com.intellinote.article.ArticleRespository;
 import com.intellinote.user.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +38,9 @@ public class NoteController {
     @Autowired
     private NoteRespository nr;
     
+    @Autowired
+    private ArticleRespository ar;
+    
     @GetMapping
     public List<Note> getAllNotes(@PathVariable int userId){
         List<Note> notes = new ArrayList<>();
@@ -47,14 +54,17 @@ public class NoteController {
     }
     
     @PostMapping
-    public void addNote(@RequestBody Note note, @PathVariable int userId){
+    public int addNote(@RequestBody Note note, @PathVariable int userId){
         note.setUser(new User(userId, "", ""));
         nr.save(note);
+        return note.getId();
     }
     
     @PutMapping("/{id}")
     public void updateNote(@RequestBody Note note, @PathVariable int id){
+        Note n = nr.getOne(id);
         note.setId(id);
+        note.setUser(n.getUser());
         nr.save(note);
     }
     
