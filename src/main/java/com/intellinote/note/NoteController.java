@@ -5,14 +5,13 @@
  */
 package com.intellinote.note;
 
-import com.intellinote.article.Article;
 import com.intellinote.article.ArticleRespository;
-import com.intellinote.user.*;
+import com.intellinote.user.User;
+
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -31,37 +31,35 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author minhdao
  */
-@RestController
-@RequestMapping("/users/{userId}/notes")
+@Controller
+@RequestMapping("/users/{username}/notes")
 public class NoteController {
     
     @Autowired
     private NoteRespository nr;
     
-    @Autowired
-    private ArticleRespository ar;
-    
     @GetMapping
-    public List<Note> getAllNotes(@PathVariable int userId){
+    public String getAllNotes(@PathVariable String username, Model model){
         List<Note> notes = new ArrayList<>();
-        nr.findByUserId(userId).forEach(notes::add);
-        return notes;
+        nr.findByUserUsername(username).forEach(notes::add);
+        model.addAttribute("notes", notes);
+        return "home";
     }
     
     @GetMapping("/{id}")
-    public Optional<Note> getNote(@PathVariable int id){
+    public @ResponseBody Optional<Note> getNote(@PathVariable int id){
         return nr.findById(id);
     }
     
     @PostMapping
-    public int addNote(@RequestBody Note note, @PathVariable int userId){
+    public @ResponseBody int addNote(@RequestBody Note note, @PathVariable int userId){
         note.setUser(new User(userId, "", ""));
         nr.save(note);
         return note.getId();
     }
     
     @PutMapping("/{id}")
-    public void updateNote(@RequestBody Note note, @PathVariable int id){
+    public @ResponseBody void updateNote(@RequestBody Note note, @PathVariable int id){
         Note n = nr.getOne(id);
         note.setId(id);
         note.setUser(n.getUser());
@@ -69,7 +67,7 @@ public class NoteController {
     }
     
     @DeleteMapping("/{id}")
-    public void deleteNote(@PathVariable int id){
+    public @ResponseBody void deleteNote(@PathVariable int id){
         nr.deleteById(id);
     }
 }

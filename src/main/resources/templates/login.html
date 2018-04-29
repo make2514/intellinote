@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div th:if="${param.error}">
+            Invalid username and password.
+        </div>
+        <div th:if="${param.logout}">
+            You have been logged out.
+        </div>
+        <form th:action="@{/login-check}" th:object="${user}" method="post">
+            <div><label> User Name : <input type="text" name="username" th:field="*{username}" required/> </label></div>
+            <div><label> Password: <input type="password" name="password" th:field="*{password}" required/> </label></div>
+            <div><input type="submit" value="Sign In"/></div>
+        </form>
+        <p>Click <a th:href="@{/registration}">here</a> to sign up</p>
+    </body>
+</html>

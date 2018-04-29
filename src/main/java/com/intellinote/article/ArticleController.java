@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author minhdao
  */
 @RestController
-@RequestMapping("/users/{userId}/notes/{noteId}/articles")
+@RequestMapping("/users/{username}/notes/{noteId}/articles")
 public class ArticleController {
     
     @Autowired
@@ -50,7 +50,7 @@ public class ArticleController {
     }
     
     @PostMapping("/add")
-    public void addArticle(@RequestBody List<Article> articles, @PathVariable int userId, @PathVariable int noteId){
+    public void addArticle(@RequestBody List<Article> articles, @PathVariable int noteId){
         Note note = nr.getOne(noteId);
         articles.forEach(article -> {
             Article a = ar.findByLink(article.getLink());
