@@ -39,6 +39,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compileOnly group: 'org.eclipse.jetty', name: 'jetty-runner', version: '9.4.9.v20180320'
 
+    //JSON
+    compile group: 'org.json', name: 'json', version: '20180130'
 }
 
 //Include the jetty runner into the build/server folder
