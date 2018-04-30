@@ -46,6 +46,10 @@ public class NewsApi {
     private Sort sortBy;
     private int pageSize;
 
+    /**
+     * Requires api from: https://newsapi.org/
+     * @param apiKey
+     */
     public NewsApi(String apiKey) {
         this.apiKey = apiKey;
         this.language = Lang.ENGLISH;
@@ -59,7 +63,6 @@ public class NewsApi {
      */
     public String getArticles(String keyword) {
         try {
-            //Retrieve news articles from api
             URL url = new URL(ROOT_URL + "language=" + language.value() + "&q=" + keyword +
                     "&sortBy=" + sortBy.value() + "&pageSize=" + pageSize );
             HttpURLConnection huc = (HttpURLConnection) url.openConnection();
