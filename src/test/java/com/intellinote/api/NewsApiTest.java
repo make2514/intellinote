@@ -12,8 +12,8 @@ public class NewsApiTest {
     NewsApi newsApi;
 
     @Before
-    public void beforeTest() {
-        newsApi = new NewsApi("d93f2e0084744846ad8736d6f363a8fe");
+    public void setup() {
+        newsApi = new NewsApi("newsKey");
     }
 
     @Test

@@ -1,24 +1,27 @@
 package com.intellinote.api;
 
-import com.intellinote.article.Article;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-public class NewsApi {
+/**
+ * Requires api from: <a href="https://newsapi.org/">https://newsapi.org/</a> <br>
+ * Store the key into project root folder into file "newsKey"
+*/
+ public class NewsApi {
 
     public enum Lang {
         ARABIC("ar"),GERMAN("de"),ENGLISH("en"),SPANISH("es"),FRANCE("fr"),
         HEBREW("he"),ITALIAN("it"),DUTCH("nl"),NORWEGIAN("no"),PORTUGUESE("pt"),
         RUSSIAN("ru"),NORTHERN_SAMI("se"),CHINESE("zh");
-        //ud missing
+        //language ud missing
 
         private String lang;
 
@@ -47,19 +50,49 @@ public class NewsApi {
     private int pageSize;
 
     /**
-     * Requires api from: https://newsapi.org/
-     * @param apiKey
+     *
+     * Requires api key from: <a href="https://newsapi.org/">https://newsapi.org/</a> <br>
+     * Default parameters are:<br>
+     * language: English<br> sort: relevancy<br> pageSize: 6
+     * @param pathToKey Give path to file were newsAPI key is stored
      */
-    public NewsApi(String apiKey) {
-        this.apiKey = apiKey;
+    public NewsApi(String pathToKey) {
+        loadKey(pathToKey);
         this.language = Lang.ENGLISH;
         this.sortBy = Sort.RELEVANCY;
         this.pageSize = 6;
     }
 
     /**
-    *   Fetches news articles by keyword. Returns a string formatted JSON
-    *   @return Signified JSON of news articles
+     *
+     * Requires api key from: <a href="https://newsapi.org/">https://newsapi.org/</a>
+     * @param pathToKey Give path to file were newsAPI key is stored
+     */
+    public NewsApi(String pathToKey,Lang language, Sort sortBy, int pageSize) {
+        loadKey(pathToKey);
+        this.language = language;
+        this.sortBy = sortBy;
+        this.pageSize = pageSize;
+    }
+
+    public void loadKey(String pathToFile) {
+        File keyFile = new File(pathToFile);
+        if (keyFile.exists()) {
+            try {
+                byte[] encoded = Files.readAllBytes(Paths.get("newsKey"));
+                apiKey = new String(encoded, Charset.defaultCharset());
+                apiKey = apiKey.trim();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No newsKey file found");
+        }
+    }
+
+    /**
+    *   Fetches news articles by keyword. Returns a string formatted JSON array of articles
+    *   @return Signified JSON array of news articles
      */
     public String getArticles(String keyword) {
         try {
@@ -77,7 +110,9 @@ public class NewsApi {
             }
             in.close();
             huc.disconnect();
-            return content.toString();
+
+            JSONArray jsonArray = new JSONObject(content.toString()).getJSONArray("articles");
+            return jsonArray.toString();
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
