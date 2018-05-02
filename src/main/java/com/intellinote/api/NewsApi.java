@@ -1,15 +1,24 @@
 package com.intellinote.api;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.intellinote.article.Article;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Requires api from: <a href="https://newsapi.org/">https://newsapi.org/</a> <br>
@@ -94,7 +103,7 @@ import java.nio.file.Paths;
     *   Fetches news articles by keyword. Returns a string formatted JSON array of articles
     *   @return Signified JSON array of news articles
      */
-    public String getArticles(String keyword) {
+    public String getArticlesJsonString(String keyword) {
         try {
             URL url = new URL(ROOT_URL + "language=" + language.value() + "&q=" + keyword +
                     "&sortBy=" + sortBy.value() + "&pageSize=" + pageSize );
@@ -111,7 +120,9 @@ import java.nio.file.Paths;
             in.close();
             huc.disconnect();
 
+            //Extract
             JSONArray jsonArray = new JSONObject(content.toString()).getJSONArray("articles");
+
             return jsonArray.toString();
 
         } catch (MalformedURLException e) {
@@ -122,4 +133,14 @@ import java.nio.file.Paths;
         return null;
     }
 
+    /**
+     *   Fetches news articles by keyword. Returns a list of Article objects
+     *   @return Signified JSON array of news articles
+     */
+    public List<Article> getArticles(String keyword) {
+        Gson gson = new Gson();
+        String jsonArray = getArticlesJsonString(keyword);
+        Article[] articles = gson.fromJson(jsonArray, Article[].class);
+        return new ArrayList<>(Arrays.asList(articles));
+    }
 }

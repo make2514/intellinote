@@ -1,29 +1,95 @@
 package com.intellinote.article;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.intellinote.api.NewsApi;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Article {
-
-    @JsonProperty("author")
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
     private String author;
-    @JsonProperty("title")
     private String title;
-    @JsonProperty("description")
     private String description;
-    @JsonProperty("url")
     private String url;
-    @JsonProperty("urlToImage")
     private String urlToImage;
-    @JsonProperty("publishedAt")
-    private String publishedAt;
+    private String publishedAt;    
+    
+    public Article(){
+        
+    }
 
-    public Article() {
+    public Article(int id, String title, String url, String description) {
+        this.id = id;
+        this.title = title;
+        this.url = url;
+        this.description = description;
+    }
+    
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLink() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUrlToImage() {
+        return urlToImage;
+    }
+
+    public void setUrlToImage(String urlToImage) {
+        this.urlToImage = urlToImage;
+    }
+
+    public String getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(String publishedAt) {
+        this.publishedAt = publishedAt;
     }
 
     @Override
     public String toString() {
-        return "Title: " + title;
+        return "Article: " + title + ", author: " + author;
     }
 }

@@ -25,6 +25,8 @@ targetCompatibility = 1.8
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
+    
+    compile("org.springframework.boot:spring-boot-starter-security")
 
     // JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -41,20 +43,11 @@ dependencies {
 
     //JSON
     compile group: 'org.json', name: 'json', version: '20180130'
-}
 
-//Include the jetty runner into the build/server folder
-task copyToLib(type: Copy) {
-    into "$buildDir/server"				//Default $buildDir is build/
-    from(configurations.compileOnly) {	//Note the use of the name of dependency 
-        include "jetty-runner*"			// configuration "compileOnly"
-        rename { String fileName -> 		//Forget the version # from filename
-"jetty-runner.jar"   
-        }
-    }
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.3'
 }
 
 //Add to task stage that Heroku to prepare deployment
-task stage {
-    dependsOn clean, copyToLib 
-}
+task stage(dependsOn: ['build', 'clean'])
+build.mustRunAfter clean
