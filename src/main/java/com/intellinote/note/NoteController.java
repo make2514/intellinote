@@ -87,7 +87,7 @@ public class NoteController {
         nr.save(note);
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/auth/users/{username}/notes/{id}")
     public @ResponseBody void deleteNote(@PathVariable int id){
         nr.deleteById(id);
     }
