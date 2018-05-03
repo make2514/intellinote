@@ -10,6 +10,7 @@ import com.intellinote.user.User;
 import com.intellinote.user.UserRespository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,8 +70,10 @@ public class NoteController {
     
     @PostMapping("/auth/users/{username}/notes/newnote")
     public @ResponseBody String addNote(@RequestBody Note note, @PathVariable String username){
+        Date now = new Date();
         User u = ur.findByUsername(username);
         note.setUser(u);
+        note.setCreationDate(now);
         nr.save(note);
         return ""+note.getId();
     }
