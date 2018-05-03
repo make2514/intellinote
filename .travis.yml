@@ -7,5 +7,5 @@ before_install:
 # whitelist
 branches:
     only:
-    -master
-    -travis
+        - master
+        - travis
