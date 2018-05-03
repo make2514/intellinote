@@ -6,12 +6,9 @@
 package com.intellinote.article;
 
 import com.intellinote.note.*;
-import com.intellinote.user.*;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -53,7 +49,7 @@ public class ArticleController {
     public void addArticle(@RequestBody List<Article> articles, @PathVariable int noteId){
         Note note = nr.getOne(noteId);
         articles.forEach(article -> {
-            Article a = ar.findByLink(article.getLink());
+            Article a = ar.findByUrl(article.getLink());
             if(a == null){
                 ar.save(article);
                 note.getArticles().add(article);
@@ -69,7 +65,7 @@ public class ArticleController {
     public void removeArticleFromNote(@RequestBody List<Article> articles, @PathVariable int userId, @PathVariable int noteId){
         Note note = nr.getOne(noteId);        
         articles.forEach(article -> {
-            Article a = ar.findByLink(article.getLink());
+            Article a = ar.findByUrl(article.getLink());
             if(a != null){
                 note.getArticles().remove(a);
             }

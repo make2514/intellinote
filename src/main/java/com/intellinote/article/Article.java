@@ -1,51 +1,30 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.intellinote.article;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.intellinote.note.Note;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 
-/**
- *
- * @author minhdao
- */
 @Entity
-//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Article {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private String link;
+    private String author;
+    private String title;
     private String description;
-    
-//    @ManyToMany(mappedBy="articles")
-//    @JsonBackReference
-//    private Set<Note> notes = new HashSet<>();
+    private String url;
+    private String urlToImage;
+    private String publishedAt;    
     
     public Article(){
         
     }
 
-    public Article(int id, String name, String link, String description) {
+    public Article(int id, String title, String url, String description) {
         this.id = id;
-        this.name = name;
-        this.link = link;
+        this.title = title;
+        this.url = url;
         this.description = description;
     }
     
@@ -57,20 +36,20 @@ public class Article {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getLink() {
-        return link;
+        return url;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getDescription() {
@@ -81,12 +60,36 @@ public class Article {
         this.description = description;
     }
 
-//    public Set<Note> getNotes() {
-//        return notes;
-//    }
-//
-//    public void setNotes(Set<Note> notes) {
-//        this.notes = notes;
-//    }
+    public String getAuthor() {
+        return author;
+    }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getUrlToImage() {
+        return urlToImage;
+    }
+
+    public void setUrlToImage(String urlToImage) {
+        this.urlToImage = urlToImage;
+    }
+
+    public String getPublishedAt() {
+        return publishedAt;
+    }
+
+    public void setPublishedAt(String publishedAt) {
+        this.publishedAt = publishedAt;
+    }
+
+    @Override
+    public String toString() {
+        return "Article: " + title + ", author: " + author;
+    }
 }
