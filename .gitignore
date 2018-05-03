@@ -26,6 +26,9 @@ logs/
 # visual studio code files
 .vscode/
 
+#newsApiKey
+newsKey
+
 *#
 *.iml
 *.ipr
@@ -68,3 +71,4 @@ secrets.yml
 .sts4-cache
 src/main/resources/application.properties
 !gradle/wrapper/gradle-wrapper.jar
+
