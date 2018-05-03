@@ -49,7 +49,7 @@ public class ArticleController {
     public void addArticle(@RequestBody List<Article> articles, @PathVariable int noteId){
         Note note = nr.getOne(noteId);
         articles.forEach(article -> {
-            Article a = ar.findByUrl(article.getLink());
+            Article a = ar.findByUrl(article.getUrl());
             if(a == null){
                 ar.save(article);
                 note.getArticles().add(article);
@@ -65,7 +65,7 @@ public class ArticleController {
     public void removeArticleFromNote(@RequestBody List<Article> articles, @PathVariable int userId, @PathVariable int noteId){
         Note note = nr.getOne(noteId);        
         articles.forEach(article -> {
-            Article a = ar.findByUrl(article.getLink());
+            Article a = ar.findByUrl(article.getUrl());
             if(a != null){
                 note.getArticles().remove(a);
             }
