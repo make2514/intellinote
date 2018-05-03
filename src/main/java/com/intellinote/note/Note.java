@@ -8,9 +8,11 @@ package com.intellinote.note;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import com.intellinote.article.Article;
 import com.intellinote.user.User;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -36,6 +38,7 @@ public class Note {
     private int id;
     private String name;
     private String path;
+    private Date creationDate;
     
     @ManyToOne
     private User user;
@@ -95,6 +98,14 @@ public class Note {
 
     public void setArticles(Set<Article> articles) {
         this.articles = articles;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
     
 }

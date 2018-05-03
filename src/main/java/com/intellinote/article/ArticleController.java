@@ -50,7 +50,7 @@ public class ArticleController {
         Note note = nr.getOne(noteId);
         if(articles.size() > 0){
             articles.forEach(article -> {
-                Article a = ar.findByLink(article.getLink());
+                Article a = ar.findByUrl(article.getUrl());
                 if(a == null){
                     ar.save(article);
                     note.getArticles().add(article);
@@ -67,7 +67,7 @@ public class ArticleController {
         Note note = nr.getOne(noteId);
         if(articles.size() > 0){        
             articles.forEach(article -> {
-                Article a = ar.findByLink(article.getLink());
+                Article a = ar.findByUrl(article.getUrl());
                 if(a != null){
                     note.getArticles().remove(a);
                 }
