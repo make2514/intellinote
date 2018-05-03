@@ -34,4 +34,14 @@ public class Keyword {
         this.articles = articles;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Keyword: ");
+        sb.append(word);
+        for (Article a : articles) {
+            sb.append(a);
+        }
+        return sb.toString();
+    }
 }

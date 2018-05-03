@@ -2,7 +2,6 @@ package com.intellinote.api;
 
 import com.google.cloud.language.v1.*;
 
-import com.intellinote.article.Article;
 import com.intellinote.keyword.Keyword;
 
 import java.io.IOException;
@@ -12,6 +11,7 @@ import java.util.List;
 public class NaturalLanguage {
 
     LanguageServiceClient language;
+    NewsApi newsApi;
 
     public List<Keyword> searchKeywords(String text) {
         try {
@@ -34,6 +34,9 @@ public class NaturalLanguage {
     }
 
     public void updateArticles(List<Keyword> keywords) {
-        
+        newsApi = new NewsApi("newsKey");
+        for (Keyword k : keywords) {
+            k.setArticles(newsApi.getArticles(k.getWord()));
+        }
     }
 }

@@ -5,7 +5,6 @@
  */
 package com.intellinote.article;
 
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -14,5 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface ArticleRespository extends JpaRepository<Article, Integer> {
 //    List<Article> findByNotes_Id(Integer id);
-    Article findByLink(String link); 
+    Article findByUrl(String url);
 }

@@ -6,6 +6,10 @@ import com.google.gson.JsonObject;
 import com.intellinote.article.Article;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -24,7 +28,7 @@ import java.util.List;
  * Requires api from: <a href="https://newsapi.org/">https://newsapi.org/</a> <br>
  * Store the key into project root folder into file "newsKey"
 */
- public class NewsApi {
+public class NewsApi {
 
     public enum Lang {
         ARABIC("ar"),GERMAN("de"),ENGLISH("en"),SPANISH("es"),FRANCE("fr"),
