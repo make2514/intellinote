@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author minhdao
  */
 @RestController
-@RequestMapping("/users/{username}/notes/{noteId}/articles")
+@RequestMapping("/auth/users/{username}/notes/{noteId}/articles")
 public class ArticleController {
     
     @Autowired
@@ -45,32 +45,35 @@ public class ArticleController {
         return ar.findById(id);
     }
     
-    @PostMapping("/add")
+    @PostMapping
     public void addArticle(@RequestBody List<Article> articles, @PathVariable int noteId){
         Note note = nr.getOne(noteId);
-        articles.forEach(article -> {
-            Article a = ar.findByUrl(article.getLink());
-            if(a == null){
-                ar.save(article);
-                note.getArticles().add(article);
-            }else{
-                note.getArticles().add(a);
-            }
-        });
-        nr.save(note);
-        
+        if(articles.size() > 0){
+            articles.forEach(article -> {
+                Article a = ar.findByLink(article.getLink());
+                if(a == null){
+                    ar.save(article);
+                    note.getArticles().add(article);
+                }else{
+                    note.getArticles().add(a);
+                }
+            });
+            nr.save(note);
+        }
     }
     
     @PostMapping("/remove")
     public void removeArticleFromNote(@RequestBody List<Article> articles, @PathVariable int userId, @PathVariable int noteId){
-        Note note = nr.getOne(noteId);        
-        articles.forEach(article -> {
-            Article a = ar.findByUrl(article.getLink());
-            if(a != null){
-                note.getArticles().remove(a);
-            }
-        });
-        nr.save(note);
+        Note note = nr.getOne(noteId);
+        if(articles.size() > 0){        
+            articles.forEach(article -> {
+                Article a = ar.findByLink(article.getLink());
+                if(a != null){
+                    note.getArticles().remove(a);
+                }
+            });
+            nr.save(note);
+        }
     }
     
     @PutMapping("/{id}")

@@ -7,6 +7,7 @@ package com.intellinote.note;
 
 import com.intellinote.article.ArticleRespository;
 import com.intellinote.user.User;
+import com.intellinote.user.UserRespository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +33,15 @@ import org.springframework.web.bind.annotation.RestController;
  * @author minhdao
  */
 @Controller
-@RequestMapping("/users/{username}/notes")
 public class NoteController {
     
     @Autowired
     private NoteRespository nr;
     
-    @GetMapping
+    @Autowired
+    private UserRespository ur;
+    
+    @GetMapping("/users/{username}/notes")
     public String getAllNotes(@PathVariable String username, Model model){
         List<Note> notes = new ArrayList<>();
         nr.findByUserUsername(username).forEach(notes::add);
@@ -46,23 +49,38 @@ public class NoteController {
         return "home";
     }
     
-    @GetMapping("/{id}")
-    public @ResponseBody Optional<Note> getNote(@PathVariable int id){
-        return nr.findById(id);
+    @GetMapping("/users/{username}/notes/{id}")
+    public String getNote(@PathVariable int id, Model model){
+        Note n = nr.getOne(id);
+        model.addAttribute("name", n.getName());
+        model.addAttribute("content", n.getPath());
+        model.addAttribute("articles", n.getArticles());
+        model.addAttribute("update", "true");
+        return "note";
     }
     
-    @PostMapping
-    public @ResponseBody int addNote(@RequestBody Note note, @PathVariable int userId){
-        note.setUser(new User(userId, "", ""));
+    @GetMapping("/users/{username}/notes/newnote")
+    public String getNewNotePage(Model model){
+        model.addAttribute("name", "Untitle");
+        model.addAttribute("content", "");
+        model.addAttribute("save", "true");
+        return "note";
+    }
+    
+    @PostMapping("/auth/users/{username}/notes/newnote")
+    public @ResponseBody String addNote(@RequestBody Note note, @PathVariable String username){
+        User u = ur.findByUsername(username);
+        note.setUser(u);
         nr.save(note);
-        return note.getId();
+        return ""+note.getId();
     }
     
-    @PutMapping("/{id}")
+    @PutMapping("/auth/users/{username}/notes/{id}")
     public @ResponseBody void updateNote(@RequestBody Note note, @PathVariable int id){
         Note n = nr.getOne(id);
         note.setId(id);
         note.setUser(n.getUser());
+        note.setArticles(n.getArticles());
         nr.save(note);
     }
     
