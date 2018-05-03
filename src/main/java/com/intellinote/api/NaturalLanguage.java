@@ -34,7 +34,7 @@ public class NaturalLanguage {
     }
 
     public void updateArticles(List<Keyword> keywords) {
-        newsApi = new NewsApi("newsKey");
+        newsApi = new NewsApi();
         for (Keyword k : keywords) {
             k.setArticles(newsApi.getArticles(k.getWord()));
         }

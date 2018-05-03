@@ -4,18 +4,19 @@ import com.intellinote.article.Article;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
+//DOESN'T WORK IN TRAVIS YET
+@Deprecated
 public class NewsApiTest {
 
     NewsApi newsApi;
 
     @Before
     public void setup() {
-        newsApi = new NewsApi("newsKey");
+        newsApi = new NewsApi();
     }
 
     @Test

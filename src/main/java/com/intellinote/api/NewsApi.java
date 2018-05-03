@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * Requires api from: <a href="https://newsapi.org/">https://newsapi.org/</a> <br>
- * Store the key into project root folder into file "newsKey"
+ * The default path for the key is in project root folder in file "newsKey"
 */
 public class NewsApi {
 
@@ -78,6 +78,20 @@ public class NewsApi {
 
     /**
      *
+     * Requires api key from: <a href="https://newsapi.org/">https://newsapi.org/</a>. Default place for key
+     * is in the application root folder in file named "newsKey" <br>
+     * Default parameters are:<br>
+     * language: English<br> sort: relevancy<br> pageSize: 6
+     */
+    public NewsApi() {
+        loadKey("newsKey");
+        this.language = Lang.ENGLISH;
+        this.sortBy = Sort.RELEVANCY;
+        this.pageSize = 6;
+    }
+
+    /**
+     *
      * Requires api key from: <a href="https://newsapi.org/">https://newsapi.org/</a>
      * @param pathToKey Give path to file were newsAPI key is stored
      */
@@ -108,6 +122,7 @@ public class NewsApi {
     *   @return Signified JSON array of news articles
      */
     public String getArticlesJsonString(String keyword) {
+        keyword = keyword.replaceAll(" ", "+");
         try {
             URL url = new URL(ROOT_URL + "language=" + language.value() + "&q=" + keyword +
                     "&sortBy=" + sortBy.value() + "&pageSize=" + pageSize );
