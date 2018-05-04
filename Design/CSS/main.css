@@ -35,19 +35,15 @@ body {
 
 }
 
-
 .intellinote {
     color: #94C04F !important;
     font-size: 25px;
     font-weight: bold;
 }
 
-
-
 ul.nav a:hover {
     color: #A0CF5F !important;
 }
-
 
 .main-nav {
     border-radius: 0px;
@@ -124,7 +120,6 @@ ul.nav button:hover {
     color: #A0CF5F !important;
 }
 
-
 footer {
 
     text-align: center;
@@ -179,7 +174,6 @@ footer {
 
 }
 
-
 #text-edit-section {
     display: grid;
     grid-template-columns: 70% 28%;
@@ -199,8 +193,6 @@ footer {
 
 }
 
-
-
 #article-container {
     grid-area: articles;
     word-wrap: break-word;
@@ -211,8 +203,6 @@ footer {
     background-color: white;
 
 }
-
-
 
 .article-title {
     font-size: 1.2em;
@@ -243,7 +233,6 @@ footer {
 
 
 }
-
 
 .note {
     background-color: #F3F3F3;
