@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <meta charset="utf-8">
+    <title>IntelliNote</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="CSS/main.css">
+</head>
+
+<body class="main-layout">
+
+    <nav class="navbar navbar-inverse main-nav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand intellinote" href="home.html">IntelliNote</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#">All notes</a></li>
+                
+                <div class="search-container">
+                    <form action="#">
+                      <input type="text" placeholder="  Search.." name="search" id="search-box">
+                      <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                  </div>
+                
+                <li><a href="#">Settings</a></li>
+                
+                <li class="profile hidden"><a href="#">Profile</a></li>
+                <li class="signout"><button type="submit" class="btn signout-btn"> Sign out</button></li>
+
+
+            </ul>
+        </div>
+    </nav>
+    <nav class="side-nav navbar navbar-inverse">
+        <div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <button onclick="window.location='note.html';" type="button" class="btn glyphicon glyphicon-file side-nav-btn"></button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn glyphicon glyphicon-floppy-save side-nav-btn"></button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn glyphicon glyphicon-print side-nav-btn"></button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn glyphicon glyphicon-trash side-nav-btn"></button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <section id="text-edit-section">
+
+        <input type="text" class="note-name" placeholder="Untitled document" />
+
+        <div class="text-options">
+            <button type="button" class="btn glyphicon glyphicon-font flex-item"></button>
+            <button type="button" class="btn glyphicon glyphicon-bold flex-item"></button>
+            <button type="button" class="btn glyphicon glyphicon-italic flex-item"></button>
+            <div class="dropdown">
+                <button class="font-size-drop btn  dropdown-toggle" type="button" data-toggle="dropdown">Font size 
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">10</a></li>
+                    <li><a href="#">12</a></li>
+                    <li><a href="#">14</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <textarea class="form-control" rows="20" id="text-area"></textarea>
+        <aside class="pre-scrollable container" id="article-container">
+            <div class="article-container">
+                <p class="article-title">
+                    A relevant article.
+                </p>
+                <p class="article-info">
+                    www.source.com - 04.02.2000
+                </p>
+            </div>
+        </aside>
+    </section>
+
+
+
+    <footer> Summer Team &copy;</footer>
+</body>
+
+</html>
