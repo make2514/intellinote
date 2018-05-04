@@ -9,7 +9,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 //DOESN'T WORK IN TRAVIS YET
-@Deprecated
+
 public class NewsApiTest {
 
     NewsApi newsApi;
@@ -17,6 +17,11 @@ public class NewsApiTest {
     @Before
     public void setup() {
         newsApi = new NewsApi();
+    }
+
+    @Test
+    public void keyFoundInSysVariables() {
+        assertNotNull(System.getenv("NEWS_KEY"));
     }
 
     @Test
