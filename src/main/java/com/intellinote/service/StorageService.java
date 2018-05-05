@@ -55,6 +55,11 @@ public class StorageService {
         }
     }
     
+    public boolean removeFile(String filePath){
+        File file = new File(filePath);
+        return file.delete();
+    }
+    
     public String init(){
 //        String rootPath = System.getProperty("user.dir");
 //        String uploadPath = rootPath + "/src/main/resources" + File.separator + UPLOAD_DIRECTORY;
