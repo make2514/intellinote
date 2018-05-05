@@ -1,63 +1,35 @@
-(function ($) {
-    "use strict";
+function showPass(){
+    
+    var passField = document.getElementById('pass-input');
+    
+    if(passField.type == 'password'){
+        passField.type = 'text';
+    }else{
+        passField.type = 'password';
+    }
+}
 
+function toggleHidden() {
+    var login = $('#container-login');
+    var reg = $('#container-regis');
+    
+    if(login.hasClass('hidden') == false){
+        reg.removeClass('hidden');
+        login.addClass('hidden');
+    }else{
+        reg.addClass('hidden');
+        login.removeClass('hidden');
+    }
+    
+}
 
-    /*==================================================================
-    [ Validate ]*/
-    var input = $('.validate-input .input100');
-
-    $('.validate-form').on('submit',function(){
-        var check = true;
-
-        for(var i=0; i<input.length; i++) {
-            if(validate(input[i]) == false){
-                showValidate(input[i]);
-                check=false;
-            }
+$(document).ready(function() {
+    $('#pass-input-reg-rep').focusout(function() {
+        var pass = $('#pass-input-reg').val();
+        var passRep = $('#pass-input-reg-rep').val();
+        
+        if(passRep != pass) {
+            alert('Passwords didn\'t match!')
         }
-
-        return check;
-    });
-
-
-    $('.validate-form .input100').each(function(){
-        $(this).focus(function(){
-           hideValidate(this);
-        });
-    });
-
-//    function validate (input) {
-//        if($(input).attr('type') == 'text' || $(input).attr('name') == 'username') {
-//            if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-//                return false;
-//            }
-//        }
-//        else {
-//            if($(input).val().trim() == ''){
-//                return false;
-//            }
-//        }
-//    }
-
-    function showValidate(input) {
-        var thisAlert = $(input).parent();
-
-        $(thisAlert).addClass('alert-validate');
-    }
-
-    function hideValidate(input) {
-        var thisAlert = $(input).parent();
-
-        $(thisAlert).removeClass('alert-validate');
-    }
-    
-//    var passField = $('.password-input');
-//    passField.css('background-image', 'url(../img/show-password.svg)');
-//    
-//    passField.mouseenter(function() {
-//        $('input [type=password]').addClass('password-image');
-//        console.log('work');
-//    })
-    
-
+    })
 })

@@ -22,34 +22,39 @@
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.1/daterangepicker.min.css">
 
     <!--	<link rel="stylesheet" type="text/css" href="css/util.css">-->
-        <link rel="stylesheet" type="text/css" href="CSS/login-1.css">
+        <link rel="stylesheet" type="text/css" href="CSS/login.css">
         <link rel="stylesheet" type="text/css" href="CSS/util.css">
+        <link rel="stylesheet" type="text/css" href="CSS/regis.css">
 
     </head>
-    <body data-gr-c-s-loaded="true">
+    <body>
 
         <div class="limiter">
-            <div class="container-login100">
+            <div class="container-login100" id="container-login">
                 <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
-                    <form class="login100-form validate-form">
+                    <form class="login100-form validate-form" name="Forms">
                         <span class="login100-form-title p-b-33">
                             Account Login
                         </span>
 
 
 
-                        <div class="wrap-input100 validate-input" data-validate="Valid username is required">
+                        <div class="wrap-input100 validate-input">
                             <input class="input100" type="text" name="username" placeholder="Username">
                             <span class="focus-input100-1"></span>
                             <span class="focus-input100-2"></span>
                         </div>
 
-                        <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
-                            <input class="input100 password-input" type="password" name="pass" placeholder="Password">
+                        <div class="wrap-input100 rs1 validate-input">
+                            <input class="input100" id="pass-input" type="password" name="pass" placeholder="Password">
+                            <img src="img/show-password.svg" alt='Show' name='password-image' id='password-image' onclick="showPass()"/>
+                            
                             <span class="focus-input100-1"></span>
                             <span class="focus-input100-2"></span>
                             
+                            
                         </div>
+                        
 
                         <div class="container-login100-form-btn m-t-20">
                             <button class="login100-form-btn">
@@ -57,6 +62,7 @@
                             </button>
                         </div>
 
+<!--
                         <div class="text-center p-t-45 p-b-4">
                             <span class="txt1">
                                 Forgot
@@ -66,14 +72,81 @@
                                 Username / Password?
                             </a>
                         </div>
+-->
 
-                        <div class="text-center">
+                        <div class="text-center p-t-45 p-b-4">
                             <span class="txt1">
                                 Create an account?
                             </span>
 
-                            <a href="#" class="txt2 hov1">
+                            <a href="#" class="txt2 hov1 sign-up" onclick="toggleHidden()">
                                 Sign up
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="container-login100 hidden" id="container-regis">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+                    <form class="login100-form validate-form" name="Forms">
+                        <span class="login100-form-title p-b-33">
+                            Register Form
+                        </span>
+
+
+
+                        <div class="wrap-input100 validate-input">
+                            <input class="input100" type="text" name="username" placeholder="Username">
+                            <span class="focus-input100-1"></span>
+                            <span class="focus-input100-2"></span>
+                        </div>
+
+                        <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                            <input class="input100" id="pass-input-reg" type="password" name="pass" placeholder="Password">
+                            <img src="img/show-password.svg" alt='Show' name='password-image' id='psimg-reg1' onclick="showPass()"/>
+                            <span class="focus-input100-1"></span>
+                            <span class="focus-input100-2"></span>
+                            
+                        </div>
+                        
+                        
+                        
+                        <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                            <input class="input100" id="pass-input-reg-rep" type="password" name="pass" placeholder="Repeat Password">
+                             <img src="img/show-password.svg" alt='Show' name='password-image' id='psimg-reg2' onclick="showPass()"/>
+
+                            <span class="focus-input100-1"></span>
+                            <span class="focus-input100-2"></span>
+                            
+                        </div>
+                        
+                       
+                        <div class="container-login100-form-btn m-t-20">
+                            <button class="login100-form-btn">
+                                Register
+                            </button>
+                        </div>
+
+<!--
+                        <div class="text-center p-t-45 p-b-4">
+                            <span class="txt1">
+                                Forgot
+                            </span>
+
+                            <a href="#" class="txt2 hov1">
+                                Username / Password?
+                            </a>
+                        </div>
+-->
+
+                        <div class="text-center p-t-45 p-b-4">
+                            <span class="txt1">
+                                Are you a member?
+                            </span>
+
+                            <a href="#" class="txt2 hov1 sign-in" onclick="toggleHidden()">
+                                Sign in
                             </a>
                         </div>
                     </form>
@@ -83,6 +156,11 @@
 
 
 
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+          
         <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 
         <script src="vendor/animsition/js/animsition.min.js"></script>
