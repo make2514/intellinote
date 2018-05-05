@@ -23,6 +23,10 @@ repositories {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+configurations {
+    dev
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     
@@ -47,8 +51,25 @@ dependencies {
 
     //Natural language api
     compile 'com.google.cloud:google-cloud-language:1.24.1'
+    // For live reloading templates
+    dev("org.springframework.boot:spring-boot-devtools")
+}
+
+task serveApp(type:Exec) {
+    workingDir '.'
+    commandLine 'java', '-jar', '.\\build\\libs\\intellinote-0.1.0.jar'
 }
 
 //Add to task stage that Heroku to prepare deployment
+task run(dependsOn: ['build', 'serveApp'])
+
+serveApp.mustRunAfter build
+
 task stage(dependsOn: ['build', 'clean'])
+
 build.mustRunAfter clean
+
+bootRun {
+    // Use Spring Boot DevTool only when we run Gradle bootRun task
+    classpath = sourceSets.main.runtimeClasspath + configurations.dev
+}
