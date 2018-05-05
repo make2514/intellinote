@@ -62,7 +62,7 @@ public class NoteController {
         Note n = nr.getOne(id);
         String content = ss.readFileToString(n.getPath());
         model.addAttribute("name", n.getName());
-        model.addAttribute("content", n.getPath());
+        model.addAttribute("content", content);
         model.addAttribute("articles", n.getArticles());
         model.addAttribute("update", "true");
         return "note";
