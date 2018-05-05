@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<html>
+   
+    
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!-- th:href="@{x}" necessary? -->
+        
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="CSS/main.css">
+        
+    </head>
+    
+    <body data-gr-c-s-loaded="true" class="main-layout">
+        
+        <nav class="navbar navbar-inverse main-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand intellinote" href="home.html">Intellinote</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li class="signout">
+                        <button type="submit" class="btn signout-btn" action="/logout" method="post" input type="submit"> Sign out</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <nav class="side-nav navbar navbar-inverse">
+            <div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <button onclick="window.location='.notes/newnote';" type="button" class="btn glyphicon glyphicon-file side-nav-btn"data-toggle="tooltip" data-placement="right" title="Create new note"></button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn glyphicon glyphicon-floppy-save side-nav-btn" data-toggle="tooltip" data-placement="right" title="Save note"></button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn glyphicon glyphicon-print side-nav-btn"data-toggle="tooltip" data-placement="right" title="Print note"></button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn glyphicon glyphicon-trash side-nav-btn"data-toggle="tooltip" data-placement="right" title="Delete note"></button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
+        
+        <section id="select-note-section">
+            <div class="home-header">
+                <h1  class="greeting" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+                
+                <!-- 
+                    **Separate create note button if needed**
+
+                    <p>
+                    <a class="btn btn-default new-note-btn" role="button" href="./notes/newnote">Create new note</a>
+                    </p>
+                -->
+            </div>
+            <div class="all-notes">
+                <h4 class="notes-heading">Your notes:</h4>
+                <ul> 
+                    
+                    <li class="note-list-item">
+                        <button class="btn note grow" onclick="window.location='http://localhost:8080/users/toan/notes/1';" type="button" >
+                            <p class="note-name"> Untitled</p>
+                            <p class="note-date">2018-05-05 10:27:32.0</p>
+                        </button>
+                    </li>
+                    <li class="note-list-item">
+                        <button class="btn note grow" onclick="window.location='http://localhost:8080/users/toan/notes/1';" type="button" >
+                            <p class="note-name"> Untitled</p>
+                            <p class="note-date">2018-05-05 10:27:32.0</p>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+       
+        
+        
+    </body>
+</html>

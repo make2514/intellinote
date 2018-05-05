@@ -200,6 +200,29 @@ footer {
     font-size: 25px;
 }
 
+.new-note-btn{
+    background-color: #94C04F;
+    color: #222;
+    border: #94C04F;
+    
+}
+
+/* 
+nav txt #999
+        #222
+        #94C04F; */ 
+
+a.btn:hover{
+    background-color: #94C04F;
+    color: #FFF ;
+}
+
+.notes-heading{
+    margin-left: 2.2em;
+    font-weight: bold;
+    color: #222;
+}
+
 /* note flex container */
 
 .all-notes {
@@ -207,19 +230,31 @@ footer {
     flex-direction: column;
     flex-wrap: wrap;
     grid-area: notes;
-
+    list-style-type: none;
 
 }
 
-
+.note-list-item{
+    list-style-type: none;
+}
 .note {
     background-color: #F3F3F3;
     border: solid 1.6px RGBA(211, 211, 211, 0.4);
-    height: 3em;
     width: 50em;
+    height: 4em;
     border-radius: 0.2em;
+    list-style-type: none;
+    padding: 0.5em;
+    color: #94C04F;
+    font-weight: bold;
+    text-decoration: none !important;
+    text-align: left;
+    
 
 }
+
+
+
 
 #select-note-section {
     grid-area: section;
@@ -233,7 +268,22 @@ footer {
 
 .note-name {
     /*    padding: 0.5em; */
-    line-height: 2em;
+    color: #94C04F;
     font-weight: bold;
+    text-decoration: none !important;
     text-align: left;
+    padding: 0;
+    margin: 0;
+    
+    
 }
+.note-date{
+    text-align: left;
+    font-weight: normal;
+    color: #222;
+    padding: 0;
+    margin: 0;
+}
+
+.grow { transition: all .2s ease-in-out; }
+.grow:hover { transform: scale(1.01);  box-shadow: 1.5px 1.5px 10px 1.5px #d3d3d3;  }
