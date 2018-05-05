@@ -13,10 +13,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
     const curHref = window.location.href;
     const url = window.location.origin + '/auth' + window.location.pathname;
-    
-    console.log(curHref.substring(0, curHref.length-8));
-    console.log(titleInput);
-    console.log(contentInput);
 
     let note = JSON.parse(localStorage.getItem('note'));
     console.log('note: ');
@@ -51,10 +47,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     updateBtn.on("click", function(){
         updateNoteInfo();
-        console.log(note);
-        console.log(url);
-        console.log(toBeAddedArticles);
-        console.log(JSON.stringify(toBeAddedArticles));
         let init = (m, toBeSentObj) => {
             let obj = {
                 method: m,
@@ -68,13 +60,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         fetch(url, init("PUT", note))
             .then(response => {
                 if(toBeAddedArticles.length !== 0){
-                    console.log(url + '/articles');
                     fetch(url + '/articles', init("POST", toBeAddedArticles));
                 }
             })
             .then(response => {
                 if(toBeRemovedArticles.length !== 0){
-                    console.log(url + '/articles/remove');
                     fetch(url + '/articles/remove', init("POST", toBeRemovedArticles))
                         .then(response => console.log(response));
                 }
@@ -94,18 +84,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
             return obj;
         };
         let aUrl = url.substring(0, url.length-8);
-        console.log(aUrl);
         fetch(url, init("POST", note))
             .then(response => response.text())
             .then(str => {
                 if(toBeAddedArticles.length !== 0){
-                    console.log(aUrl+"/"+str+"/articles");
                     fetch(aUrl+"/"+str+"/articles", init("POST", toBeAddedArticles))
                         .then(response => {
                             let redirectUrl = curHref.substring(0, curHref.length-8);
                             window.location.replace(redirectUrl);
                         });
                 }
+            });
+    });
+    
+    deleteBtn.on("click", function(){
+        fetch(url, {
+            method : "DELETE"
+        })
+            .then(response => {
+                let redirectUrl = curHref.substring(0, curHref.lastIndexOf('/'));
+                window.location.replace(redirectUrl);
             });
     });
        
