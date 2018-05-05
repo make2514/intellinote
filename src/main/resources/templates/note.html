@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/note.css}" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            var savedArticles = /*[[${articles}]]*/ [];
+            var note = {
+                name: /*[[${name}]]*/ 'unititle',
+                path: /*[[${content}]]*/ ''
+            };
+            /*]]>*/
+            
+            localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
+            localStorage.setItem('note', JSON.stringify(note));
+//            console.log(savedArticles);
+        </script>
+        <script th:src="@{/js/note.js}"></script>
+    </head>
+    <body>
+        
+        <input id="titleInput" type="text" th:value="${name}"/>
+        <br>
+        <textarea id="contentInput" rows="10" cols="100" wrap="hard" th:text="${content}">
+            
+        </textarea>
+        
+        <h3>Article list:</h3>
+        <div th:if="${articles != null}">
+            <div th:each="a : ${articles}">
+                <p><a th:href="@{${a.link}}" th:text="${a.name}"/></p>
+                <p th:text="${a.description}"/>
+            </div>
+        </div>
+        
+        <button id="saveBtn" th:if="${save}">Save</button>
+        <button id="updateBtn" th:if="${update}">Update</button>
+        <button id="deleteBtn" th:if="${update}">Delete</button>
+    </body>
+</html>
