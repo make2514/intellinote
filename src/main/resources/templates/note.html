@@ -37,7 +37,7 @@ and open the template in the editor.
         <h3>Article list:</h3>
         <div th:if="${articles != null}">
             <div th:each="a : ${articles}">
-                <p><a th:href="@{${a.link}}" th:text="${a.name}"/></p>
+                <p><a th:href="@{${a.url}}" th:text="${a.title}"/></p>
                 <p th:text="${a.description}"/>
             </div>
         </div>

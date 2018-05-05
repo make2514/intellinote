@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="CSS/main.css">
+</head>
+
+<body class="main-layout">
+
+    <nav class="navbar navbar-inverse main-nav">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand intellinote" href="home.html">IntelliNote</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#">Settings</a></li>
+                <li class="signout"><button type="submit" class="btn signout-btn"> Sign out</button></li>
+            </ul>
+        </div>
+    </nav>
+    <nav class="side-nav navbar navbar-inverse">
+        <div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <button onclick="window.location='note.html';" type="button" class="btn glyphicon glyphicon-file side-nav-btn"></button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn glyphicon glyphicon-floppy-save side-nav-btn"></button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn glyphicon glyphicon-print side-nav-btn"></button>
+                </li>
+                <li class="nav-item">
+                    <button type="button" class="btn glyphicon glyphicon-trash side-nav-btn"></button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <section id="select-note-section">
+        <div class="home-header">
+            <p class="greeting">
+                Welcome username!
+            </p>
+            <p>
+                Your notes:
+            </p>
+        </div>
+        <div class="all-notes">
+            <button type="button" class="btn note">
+                <p class="note-name">Note1</p> 
+            </button>
+        </div>
+    </section>
+
+
+
+</body>
+
+</html>

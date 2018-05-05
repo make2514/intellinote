@@ -44,10 +44,6 @@ public class Article {
         this.title = title;
     }
 
-    public String getLink() {
-        return url;
-    }
-
     public void setUrl(String url) {
         this.url = url;
     }

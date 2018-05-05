@@ -18,6 +18,7 @@ and open the template in the editor.
         <ul>
             <li  th:each="note : ${notes}">
                 <a th:text="${note.name}" th:href="@{'./notes/' + ${note.id}}"/>
+                <p>Last modified: <span th:text="${note.creationDate}"></span></p>
             </li>
         </ul>
         <a href="./notes/newnote">Add new note</a>

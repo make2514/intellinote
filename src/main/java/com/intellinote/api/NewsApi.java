@@ -26,7 +26,8 @@ import java.util.List;
 
 /**
  * Requires api from: <a href="https://newsapi.org/">https://newsapi.org/</a> <br>
- * The default path for the key is in project root folder in file "newsKey"
+ * By default NewsApi constructor looks for system variable NEWS_API for the api key.
+ * This key is required to when making searches to api.
 */
 public class NewsApi {
 
@@ -70,7 +71,7 @@ public class NewsApi {
      * @param pathToKey Give path to file were newsAPI key is stored
      */
     public NewsApi(String pathToKey) {
-        loadKey(pathToKey);
+        this.apiKey = System.getenv("NEWS_KEY");
         this.language = Lang.ENGLISH;
         this.sortBy = Sort.RELEVANCY;
         this.pageSize = 6;
@@ -78,13 +79,13 @@ public class NewsApi {
 
     /**
      *
-     * Requires api key from: <a href="https://newsapi.org/">https://newsapi.org/</a>. Default place for key
-     * is in the application root folder in file named "newsKey" <br>
+     * Requires api key from: <a href="https://newsapi.org/">https://newsapi.org/</a>. Looks for system
+     * variable NEWS_KEY to be able make requests to the api<br>
      * Default parameters are:<br>
      * language: English<br> sort: relevancy<br> pageSize: 6
      */
     public NewsApi() {
-        loadKey("newsKey");
+        this.apiKey = System.getenv("NEWS_KEY");
         this.language = Lang.ENGLISH;
         this.sortBy = Sort.RELEVANCY;
         this.pageSize = 6;
@@ -96,13 +97,25 @@ public class NewsApi {
      * @param pathToKey Give path to file were newsAPI key is stored
      */
     public NewsApi(String pathToKey,Lang language, Sort sortBy, int pageSize) {
-        loadKey(pathToKey);
+        this.apiKey = System.getenv("NEWS_KEY");
         this.language = language;
         this.sortBy = sortBy;
         this.pageSize = pageSize;
     }
 
-    public void loadKey(String pathToFile) {
+    /**
+     *
+     * Requires api key from: <a href="https://newsapi.org/">https://newsapi.org/</a>
+     * Looks for system variable NEWS_KEY to be able make requests to the api
+     */
+    public NewsApi(Lang language, Sort sortBy, int pageSize) {
+        this.apiKey = System.getenv("NEWS_KEY");
+        this.language = language;
+        this.sortBy = sortBy;
+        this.pageSize = pageSize;
+    }
+
+    public void loadKeyFromFile(String pathToFile) {
         File keyFile = new File(pathToFile);
         if (keyFile.exists()) {
             try {

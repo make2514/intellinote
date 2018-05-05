@@ -1,32 +1,131 @@
-html {}
+/* palette: 
+old background: #BFE1BF
+navbar-inverse: #222
+optional: 3E5170
+menu hover: #A0CF5F
+intellinote logo: #94C04F
+*/
+
+/* MAIN */
+
+html {
+    height: 100%;
+    width: 100%;
+}
 
 head {}
 
 body {
-    background-color: #BFE1BF;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    font-family: font-family: Arial, Helvetica, sans-serif;
+
+
 }
 
-h1 {
-    grid-area: head;
-    margin-bottom: 1em;
-    text-align: center;
+.main-layout {
+    display: grid;
+    grid-template-columns: 4.4% 95.6%;
+    grid-template-rows: 8% 87% 5%;
+    grid-template-areas: "nav nav" 
+                         "menu section" 
+                         "menu footer";
+
+}
+
+
+.intellinote {
+    color: #94C04F !important;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+
+
+ul.nav a:hover {
+    color: #A0CF5F !important;
+}
+
+
+.main-nav {
+    border-radius: 0px;
+    grid-area: nav;
+    position: fixed;
+    width: 100%;
+    max-height: 50px;
+
+
+}
+
+
+.signout-btn {
+    background-color: inherit;
+    color: #999;
+    line-height: 35px;
+
+}
+
+.side-nav {
+    grid-area: menu;
+    border: 1px #222 !important;
+    border-radius: 0px;
+    padding-top: 2em;
+    margin: 0px;
+    height: 91.5%;
+    position: fixed;
+    bottom: 0em;
+    top: 50px;
+
+
+}
+
+.side-nav-btn {
     color: white;
-    text-shadow: -1px -1px 0 #006400,
-    1px -1px 0 #006400,
-    -1px 1px 0 #006400,
-    1px 1px 0 #006400;
+    background-color: #222;
+    font-size: 25px;
 
 }
+
+ul.nav button:hover {
+    color: #A0CF5F !important;
+}
+
+
+footer {
+
+    text-align: center;
+
+    left: 40%;
+    right: 40%;
+    color: #222;
+    grid-area: footer;
+
+
+}
+
+/*NOTE EDIT VIEW*/
+
+.note-name {
+    grid-area: name;
+    width: 20em;
+}
+
+/*Flex container of buttons on top of text editor*/
 
 .text-options {
+    height: 40px;
     background-color: #f6f6f6;
     grid-area: options;
     display: flex;
     flex-direction: row;
     padding-bottom: 0.1em;
     border-radius: 0.5em;
+    border: solid 1.6px RGBA(211, 211, 211, 0.3);
 
 }
+
+/*Buttons on top of text editor*/
 
 .flex-item {
     padding: 0.6em;
@@ -35,32 +134,44 @@ h1 {
     color: black !important;
 
 
+
 }
 
-.font-size {
+/*Font-size button - text editor */
+
+.font-size-drop {
     background-color: #f6f6f6 !important;
     border-radius: 0px !important;
-    height: 3em;
+    height: inherit;
 
 }
 
-#main-section {
+
+#text-edit-section {
     display: grid;
     grid-template-columns: 70% 28%;
-    grid-template-rows: 10% 7% 83%;
-    grid-template-areas: "head head" "options ." "text articles";
+    grid-template-rows: 5% 7% 78%;
+    grid-template-areas: "name ." 
+                         "options ." 
+                         "text articles";
+    grid-area: section;
+    margin: 1.85em;
+
 }
 
 #text-area {
     grid-area: text;
+    margin-top: 0.7em;
 
 
 }
 
+
+
 #article-container {
     grid-area: articles;
     word-wrap: break-word;
-    border-left: solid 1.6px lightgrey;
+    border: solid 1.6px lightgrey;
     max-height: 500px;
     padding: 1em;
     max-width: 320px;
@@ -68,22 +179,61 @@ h1 {
 
 }
 
-footer {
-    padding: 1em;
-    text-align: center;
-    position: fixed;
-    bottom: 0px;
-    left: 40%;
-    right: 40%;
-    color: white;
-    text-shadow: -0.5px -0.5px 0 #006400,
-    0.5px -0.5px 0 #006400,
-    -0.5px 0.5px 0 #006400,
-    0.5px 0.5px 0 #006400;
+
+
+.article-title {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.article-info {}
+
+/*HOME VIEW*/
+
+.home-header {
+    grid-area: head;
+}
+
+/* welcome message */
+
+.greeting {
+    font-size: 25px;
+}
+
+/* note flex container */
+
+.all-notes {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    grid-area: notes;
+
 
 }
 
-.article {
-    font-size: 1.2em;
-    font-weight: 600;
+
+.note {
+    background-color: #F3F3F3;
+    border: solid 1.6px RGBA(211, 211, 211, 0.4);
+    height: 3em;
+    width: 50em;
+    border-radius: 0.2em;
+
+}
+
+#select-note-section {
+    grid-area: section;
+    padding: 1em;
+    display: grid;
+    grid-template-rows: 30% 70%;
+    grid-template-columns: %;
+    grid-template-areas: "head" 
+                         "notes";
+}
+
+.note-name {
+    /*    padding: 0.5em; */
+    line-height: 2em;
+    font-weight: bold;
+    text-align: left;
 }
