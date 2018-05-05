@@ -147,7 +147,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #A0CF5F;
+  background: #222;
 }
 
 .wrap-login100 {
@@ -239,7 +239,7 @@ input.input100 {
   position: absolute;
   width: 0;
   height: 1px;
-  background-color: #4272d7;
+  background-color: #94C04F;
 }
 
 .focus-input100-1::before {
@@ -259,7 +259,7 @@ input.input100 {
   position: absolute;
   width: 1px;
   height: 0;
-  background-color: #4272d7;
+  background-color: #94C04F;
 }
 
 .focus-input100-1::after {
@@ -337,7 +337,7 @@ input.input100 {
   padding: 0 20px;
   width: 100%;
   height: 60px;
-  background-color: #4272d7;
+  background-color: #94C04F;
 
   font-family: OpenSans-Regular;
   font-size: 14px;
