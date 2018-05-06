@@ -87,7 +87,7 @@ public class NewsApi {
     public NewsApi() {
         this.apiKey = System.getenv("NEWS_KEY");
         this.language = Lang.ENGLISH;
-        this.sortBy = Sort.RELEVANCY;
+        this.sortBy = Sort.POPULARITY;
         this.pageSize = 6;
     }
 
@@ -175,4 +175,6 @@ public class NewsApi {
         Article[] articles = gson.fromJson(jsonArray, Article[].class);
         return new ArrayList<>(Arrays.asList(articles));
     }
+
+
 }

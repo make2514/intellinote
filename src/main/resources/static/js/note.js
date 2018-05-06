@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,14 +6,14 @@
 
 document.addEventListener("DOMContentLoaded", function (event) {
     const titleInput = $("#titleInput");
-    const contentInput = $("#contentInput");
+    const contentInput = $("#text-area");
     const saveBtn = $("#saveBtn");
     const updateBtn = $("#updateBtn");
     const deleteBtn = $("#deleteBtn");
-    
+
     const curHref = window.location.href;
     const url = window.location.origin + '/auth' + window.location.pathname;
-    
+
 //    console.log(curHref.substring(0, curHref.length-8));
 //    console.log(titleInput);
 //    console.log(contentInput);
@@ -31,17 +31,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
           searchBtn = $('.searchBtn'),
           savedArticlesContainer = $('#savedArticles'),
           searchArticlesContainer = $('#searchArticles');
-    
+
     console.log(savedArticlesContainer);
     console.log(searchArticlesContainer);
-          
+
     let articlesAll = [];
     let articlesSaved = [];
-          
+
     let note = JSON.parse(localStorage.getItem('note'));
     console.log('note: ');
     console.log(note);
-    
+
 //    let temp = [
 //        {
 //            author : "Nick Douglas",
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //            publishedAt : "2018-04-19T19:00:00Z"
 //        }
 //    ];
-    
+
     let savedArticles = JSON.parse(localStorage.getItem('savedArticles')) === null ? [] : JSON.parse(localStorage.getItem('savedArticles'));
     console.log('articles: ');
     console.log(savedArticles);
@@ -67,14 +67,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //            link : "hihihi"
 //        }
     ];
-    
+
     let toBeRemovedArticles = [
 //        {
 //            name : "funny article 2",
 //            link : "hihihi"
 //        }
     ];
-    
+
 //    let searchArticles = [
 //        {
 //            word : "Apple",
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //                    description : "Apple likes to say that it cares more about your privacy than other tech giants like Facebook, Google, and Amazon, but does that claim actually hold up? It turns out the answer is a pretty resounding yes. Read more...",
 //                    url : "https://lifehacker.com/heres-what-apple-knows-about-you-spoiler-not-much-1825779350",
 //                    urlToImage : "https://i.kinja-img.com/gawker-media/image/upload/s--5gWPbN-1--/c_fill,fl_progressive,g_center,h_900,q_80,w_1600/kgukj6yykudzspxsy71e.jpg",
-//                    publishedAt : "2018-05-04T19:45:00Z" 
+//                    publishedAt : "2018-05-04T19:45:00Z"
 //                },
 //                {
 //                    author : "David Murphy",
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //                    description : "Before we begin, Windows users, let’s start the affirmation: We use Windows. We all agree that iTunes has a terrible design. We will throw a party if Apple ever modernizes its app, but we hate that iTunes is the best possible option for synchronizing content …",
 //                    url : "https://lifehacker.com/if-youre-an-iphone-loving-windows-user-youll-want-itun-1825606649",
 //                    urlToImage : "https://i.kinja-img.com/gawker-media/image/upload/s--yVuMwpgK--/c_fill,fl_progressive,g_center,h_900,q_80,w_1600/am5cj6t7hc7zt2pwhlk4.jpg",
-//                    publishedAt : "2018-04-27T19:15:00Z" 
+//                    publishedAt : "2018-04-27T19:15:00Z"
 //                },
 //                {
 //                    author : "David Murphy",
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $(this).parent().remove();
             addArticle(article, savedArticlesContainer, "-");
         }
-        
+
     });
 
     savedTab.on('click', '.aBtn', function(){
@@ -193,19 +193,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $(this).parent().remove();
         addArticle(article, searchArticlesContainer, "+");
     });
-    
 
-    function addArticle(article, div, sign){
-      let a = `
-        <div class="article">
-          <p><b><a href="${article.url}">${article.title}</a></b></p>
-          <p>${article.description}</p>
-          <button class="aBtn">${sign}</button>
-        </div>
-      `;
-      div[0].innerHTML+=a;
-    }
-    
     function updateNoteInfo(){
         note.name = titleInput.val();
         note.path = contentInput.val();
@@ -238,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             });
     });
-    
+
     saveBtn.on("click", function(){
         updateNoteInfo();
         let init = (m, toBeSentObj) => {
@@ -266,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             });
     });
-    
+
     deleteBtn.on("click", function(){
         fetch(url, {
             method : "DELETE"
@@ -276,12 +264,16 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 window.location.replace(redirectUrl);
             });
     });
-    
+
     searchBtn.on('click', function(){
         loadArticles(contentInput.val());
     });
-    
+
+//ARTICLES!!!
+
     function loadArticles(text) {
+      console.log(window.location.origin);
+      console.log(text);
         fetch(window.location.origin + '/news', {
           'method': 'POST',
           'body': text,
@@ -289,6 +281,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         })
         .then(response => response.json())
         .then(function(articleJson) {
+          console.log(articleJson);
           articlesAll = articleJson;
           setAllArticles();
         });
@@ -310,9 +303,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
           for (let article of keyword.articles) {
             addArticle(article ,searchArticlesContainer, "+");
-                
           }
         }
+      }
+
+      function addArticle(article, div, sign){
+        let a = `
+          <div class="article">
+            <p><b><a href="${article.url}">${article.title}</a></b></p>
+            <p>${article.description}</p>
+            <button class="aBtn">${sign}</button>
+          </div>
+        `;
+        div[0].innerHTML+=a;
       }
 
       function seticles() {
@@ -351,4 +354,3 @@ document.addEventListener("DOMContentLoaded", function (event) {
         return false;
       }
 });
-
