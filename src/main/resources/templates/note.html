@@ -9,8 +9,12 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link th:href="@{/css/main.css}" rel="stylesheet" />
         <link th:href="@{/css/note.css}" rel="stylesheet" />
+        
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script th:inline="javascript">
             /*<![CDATA[*/
             var savedArticles = /*[[${articles}]]*/ [];
@@ -26,24 +30,104 @@ and open the template in the editor.
         </script>
         <script th:src="@{/js/note.js}"></script>
     </head>
-    <body>
+    <body class="main-layout">
         
-        <input id="titleInput" type="text" th:value="${name}"/>
-        <br>
-        <textarea id="contentInput" rows="10" cols="100" wrap="hard" th:text="${content}">
-            
-        </textarea>
-        
-        <h3>Article list:</h3>
-        <div th:if="${articles != null}">
-            <div th:each="a : ${articles}">
-                <p><a th:href="@{${a.url}}" th:text="${a.title}"/></p>
-                <p th:text="${a.description}"/>
+        <nav class="navbar navbar-inverse main-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand intellinote" href="../notes">IntelliNote</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="../notes">Home</a></li>
+<!--                    <li><a href="#">Settings</a></li>-->
+                    <li class="signout">
+                        <form th:action="@{/logout}" method="post">
+                            <button type="submit" class="btn signout-btn"> Sign out</button>
+                        </form>
+                    </li>
+                </ul>
             </div>
-        </div>
-        
-        <button id="saveBtn" th:if="${save}">Save</button>
-        <button id="updateBtn" th:if="${update}">Update</button>
-        <button id="deleteBtn" th:if="${update}">Delete</button>
+        </nav>
+        <nav class="side-nav navbar navbar-inverse">
+            <div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <button onclick="window.location='./newnote';" type="button" class="btn glyphicon glyphicon-file side-nav-btn"></button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn glyphicon glyphicon-floppy-save side-nav-btn" id="saveBtn" th:if="${save}"></button>
+                    </li>
+                    <li class="nav-item">
+                        <button type="button" class="btn glyphicon glyphicon-floppy-save side-nav-btn" id="updateBtn" th:if="${update}"></button>
+                    </li>
+<!--                    <li class="nav-item">
+                        <button type="button" class="btn glyphicon glyphicon-print side-nav-btn"></button>
+                    </li>-->
+                    <li class="nav-item">
+                        <button type="button" class="btn glyphicon glyphicon-trash side-nav-btn" id="deleteBtn" th:if="${update}"></button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+
+        <section id="text-edit-section">
+
+            <input type="text" class="note-name" placeholder="Unitiled document" th:value="${name}" />
+
+            <div class="text-options">
+                <button type="button" class="btn glyphicon glyphicon-font flex-item"></button>
+                <button type="button" class="btn glyphicon glyphicon-bold flex-item"></button>
+                <button type="button" class="btn glyphicon glyphicon-italic flex-item"></button>
+                <div class="dropdown">
+                    <button class="font-size-drop btn  dropdown-toggle" type="button" data-toggle="dropdown">Font size 
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">10</a></li>
+                        <li><a href="#">12</a></li>
+                        <li><a href="#">14</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <textarea class="form-control" rows="20" id="text-area" th:text="${content}"></textarea>
+            <div class="tabs" id="article-container">
+                <div class="tab-button-outer">
+                    <ul id="tab-button">
+                        <li><a href="#tab01">Saved Articles</a></li>
+                        <li><a href="#tab02">Search Articles</a></li>
+                    </ul>
+                </div>
+                <div id="tab01" class="tab-contents">
+                    
+                    <div id="savedArticles" class="articles">
+                        <div class="article" th:if="${articles != null}" th:each="a : ${articles}" >
+                            <p><a th:href="@{${a.url}}" th:text="${a.title}"/></p>
+                            <p th:text="${a.description}"/>
+                            <button class="aBtn">-</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="tab02" class="tab-contents">
+                    <button class="searchBtn">Search</button>
+                    <div class="input-container">
+                        <input type="text" placeholder="Type what you want to search">
+                    </div>
+                    <div id="searchArticles" class="articles">
+                        
+                    </div>
+    <!--                <div class="article">
+                        <p><b>Header</b></p>
+                        <p><em>Description</em></p>
+                        <button class="aBtn">+</button>
+                    </div>-->
+                </div>
+            </div>
+            <!--</aside>-->
+        </section>
+
+
+
+        <footer> Summer Team &copy;</footer>
     </body>
 </html>
