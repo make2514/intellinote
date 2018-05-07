@@ -70,7 +70,7 @@ public class NoteController {
     
     @GetMapping("/users/{username}/notes/newnote")
     public String getNewNotePage(Model model){
-        model.addAttribute("name", "Untitle");
+        model.addAttribute("name", "Untitled");
         model.addAttribute("content", "");
         model.addAttribute("save", "true");
         return "note";
@@ -80,9 +80,14 @@ public class NoteController {
     public @ResponseBody String addNote(@RequestBody Note note, @PathVariable String username) throws IOException{
         Date now = new Date();
         User u = ur.findByUsername(username);
+        List<Note> notes = nr.findByName(note.getName());
         note.setUser(u);
         note.setCreationDate(now);
-        note.setPath(ss.store(note.getName(), note.getPath()));
+        if(notes != null){
+            note.setPath(ss.store(note.getName()+"("+notes.size()+")", note.getPath()));
+        }else{
+            note.setPath(ss.store(note.getName(), note.getPath()));
+        }
         nr.save(note);
         return ""+note.getId();
     }
