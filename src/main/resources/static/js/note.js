@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
           savedArticlesContainer = $('#savedArticles'),
           searchArticlesContainer = $('#searchArticles'),
           keywordsContainer = $('#keywordSelect');
-
+          
     let note = JSON.parse(localStorage.getItem('note'));
     console.log('note: ');
     console.log(note);
@@ -190,7 +190,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     fetch(url + '/articles/remove', init("POST", toBeRemovedArticles))
                         .then(response => console.log(response));
                 }
-            });
+            })   
+            .then(response => showNotification());
     });
 
     saveBtn.on("click", function(){
@@ -247,6 +248,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
             showArticlesOfKeyword(findArticlesFromKeyword(keyword));
         }
     });
+    
+    function showNotification(){
+        $("#noti").css('visibility', 'visible');
+        $("#noti").fadeOut(4000, function(){
+            $(this).css('display', 'block');
+            $(this).css('visibility', 'hidden');
+        });
+    }
     
     //reset articles div and select input
     function resetSearchArticles(){

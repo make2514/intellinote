@@ -72,8 +72,10 @@ and open the template in the editor.
 
 
         <section id="text-edit-section">
-
-            <input type="text" id="titleInput" class="note-name" placeholder="Untitled document" th:value="${name}" />
+            <div>
+                <p id="noti">Your note is updated :)</p>
+                <input type="text" id="titleInput" class="note-name" placeholder="Untitled document" th:value="${name}" />
+            </div>
 
             <div class="text-options">
                 <button type="button" class="btn glyphicon glyphicon-font flex-item"></button>
