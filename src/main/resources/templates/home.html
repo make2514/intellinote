@@ -26,11 +26,10 @@ and open the template in the editor.
         <nav class="navbar navbar-inverse main-nav">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand intellinote" href="home.html">Intellinote</a>
+                    <a class="navbar-brand intellinote" href="">Intellinote</a>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li><a href="home.html">Home</a></li>
-                    <li><a href="#">Settings</a></li>
+                <ul class="nav navbar-nav" th:object="${user}">
+                    <li><a href="">Home</a></li>
                     <li class="signout">
                         <form th:action="@{/logout}" method="post">
                             <input type="submit" value="Sign Out"/>
