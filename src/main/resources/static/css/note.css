@@ -16,8 +16,8 @@ body {
 
 #text-edit-section{
     grid-template-columns: 70% 30%;
-    grid-template-rows: 50px 25px 1fr;
-    grid-template-areas: "name ." "options articles" "text articles";
+    grid-template-rows: 75px 1fr;
+    grid-template-areas: "name ." "text-editor articles";
 }
 
 .tabs {
@@ -77,10 +77,10 @@ body {
 }*/
 
 .article{
-   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  padding: 10px 20px;
-  margin-top: 10px;
-  position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    padding: 10px 20px;
+    margin-top: 10px;
+    position: relative;
 }
 
 .article a {
@@ -189,9 +189,31 @@ input:focus, button:focus {
     color: black;
     padding-left: 5px;
     margin-bottom: 10px;
-    margin-top: 10px;
+    margin-top: 5px;
     border: none;
     border-bottom: 1px solid #c4c4c4;
     font-size: 1.3em;
+}
+
+.non-visible{
+    visibility: hidden;
+}
+
+#noti{
+    margin: 0;
+    border: 1px solid #94c04f;
+    border-radius: 5px;
+    padding: 5px;
+    padding-left: 10px;
+    background: #bfdd8f;
+    color: #465a27;
+    font-size: 1em;
+    font-weight: bold;
+    visibility: hidden;
+}
+
+#editor-container{
+    grid-area: text-editor;
+    height: 93%;
 }
 

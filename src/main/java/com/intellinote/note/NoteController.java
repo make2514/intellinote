@@ -106,9 +106,10 @@ public class NoteController {
     
     @DeleteMapping("/auth/users/{username}/notes/{id}")
     public @ResponseBody void deleteNote(@PathVariable int id){
-        Note n = nr.getOne(id);
+//        Note n = nr.getOne(id);
 //        if(ss.removeFile(n.getPath())){
 //            nr.deleteById(id);
 //        }
+        nr.deleteById(id);
     }
 }

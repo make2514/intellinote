@@ -5,6 +5,10 @@
  */
 
 document.addEventListener("DOMContentLoaded", function (event) {
+    var quill = new Quill('#editor', {
+        theme: 'snow'
+    });
+    
     const titleInput = $("#titleInput");
     const contentInput = $("#text-area");
     const saveBtn = $("#saveBtn");
@@ -28,10 +32,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
           savedArticlesContainer = $('#savedArticles'),
           searchArticlesContainer = $('#searchArticles'),
           keywordsContainer = $('#keywordSelect');
-
+          
     let note = JSON.parse(localStorage.getItem('note'));
     console.log('note: ');
     console.log(note);
+    
+    setup();
 
     let savedArticles = JSON.parse(localStorage.getItem('savedArticles')) === null ? [] : JSON.parse(localStorage.getItem('savedArticles'));
     console.log('articles: ');
@@ -103,6 +109,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //            ]
 //        }
 //    ];
+    
+    //set formated text to editor
+    function setup(){
+        if(note.content !== ""){
+            quill.setContents(JSON.parse(note.content));
+        }
+    }
 
     $tabButtonItem.first().addClass(activeClass);
     $tabContents.not(':first').hide();
@@ -190,7 +203,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     fetch(url + '/articles/remove', init("POST", toBeRemovedArticles))
                         .then(response => console.log(response));
                 }
-            });
+            })   
+            .then(response => showNotification());
     });
 
     saveBtn.on("click", function(){
@@ -234,7 +248,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     searchBtn.on('click', function(){
         resetSearchArticles();
-        loadArticles(contentInput.val());
+        console.log(quill.getText());
+        loadArticles(quill.getText());
     });
     
     keywordsContainer.on('change', function(){
@@ -247,6 +262,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
             showArticlesOfKeyword(findArticlesFromKeyword(keyword));
         }
     });
+
+    function showNotification(){
+        $("#noti").css('visibility', 'visible');
+        $("#noti").fadeOut(4000, function(){
+            $(this).css('display', 'block');
+            $(this).css('visibility', 'hidden');
+        });
+    }
     
     //reset articles div and select input
     function resetSearchArticles(){
@@ -272,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
     function updateNoteInfo(){
         note.name = titleInput.val();
-        note.content = contentInput.val();
+        note.content = JSON.stringify(quill.getContents());
     }
 
 //ARTICLES!!!
