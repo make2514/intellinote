@@ -55,17 +55,17 @@ public class UserController {
     
     public EncrytedPasswordUtils eu = new EncrytedPasswordUtils();
     
-    @GetMapping
-    public @ResponseBody List<User> getAllUsers(){
-        List<User> users = new ArrayList<>();
-        ur.findAll().forEach(users::add);
-        return users;
-    }
-      
-    @GetMapping("/{id}")
-    public @ResponseBody Optional<User> getUser(@PathVariable int id){
-        return ur.findById(id);
-    }
+//    @GetMapping
+//    public @ResponseBody List<User> getAllUsers(){
+//        List<User> users = new ArrayList<>();
+//        ur.findAll().forEach(users::add);
+//        return users;
+//    }
+//      
+//    @GetMapping("/{id}")
+//    public @ResponseBody Optional<User> getUser(@PathVariable int id){
+//        return ur.findById(id);
+//    }
     
     @PostMapping("/registration")
     public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult, Model model, HttpServletRequest request) {

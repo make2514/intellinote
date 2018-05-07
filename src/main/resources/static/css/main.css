@@ -143,10 +143,10 @@ footer {
 #article-container {
     grid-area: articles;
     word-wrap: break-word;
-    border: solid 1.6px lightgrey;
-    max-height: 500px;
+    /*border: solid 1.6px lightgrey;*/
+    /*max-height: 500px;*/
     padding: 1em;
-    max-width: 320px;
+    /*max-width: 320px;*/
     background-color: white;
 }
 

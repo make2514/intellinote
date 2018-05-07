@@ -45,12 +45,12 @@ public class NoteController {
     @Autowired
     private UserRespository ur;
     
-     @Autowired
-    private StorageService ss;
+//     @Autowired
+//    private StorageService ss;
     
     @GetMapping("/users/{username}/notes")
     public String getAllNotes(@PathVariable String username, Model model){
-        ss.init();
+//        ss.init();
         List<Note> notes = new ArrayList<>();
         nr.findByUserUsername(username).forEach(notes::add);
         model.addAttribute("notes", notes);
@@ -60,9 +60,9 @@ public class NoteController {
     @GetMapping("/users/{username}/notes/{id}")
     public String getNote(@PathVariable int id, Model model) throws FileNotFoundException{
         Note n = nr.getOne(id);
-        String content = ss.readFileToString(n.getPath());
+//        String content = ss.readFileToString(n.getPath());
         model.addAttribute("name", n.getName());
-        model.addAttribute("content", content);
+        model.addAttribute("content", n.getContent());
         model.addAttribute("articles", n.getArticles());
         model.addAttribute("update", "true");
         return "note";
@@ -80,14 +80,14 @@ public class NoteController {
     public @ResponseBody String addNote(@RequestBody Note note, @PathVariable String username) throws IOException{
         Date now = new Date();
         User u = ur.findByUsername(username);
-        List<Note> notes = nr.findByName(note.getName());
+//        List<Note> notes = nr.findByName(note.getName());
         note.setUser(u);
         note.setCreationDate(now);
-        if(notes != null){
-            note.setPath(ss.store(note.getName()+"("+notes.size()+")", note.getPath()));
-        }else{
-            note.setPath(ss.store(note.getName(), note.getPath()));
-        }
+//        if(notes != null){
+//            note.setPath(ss.store(note.getName()+"("+notes.size()+")", note.getPath()));
+//        }else{
+//            note.setPath(ss.store(note.getName(), note.getPath()));
+//        }
         nr.save(note);
         return ""+note.getId();
     }
@@ -99,16 +99,16 @@ public class NoteController {
         note.setId(id);
         note.setUser(n.getUser());
         note.setArticles(n.getArticles());
-         note.setCreationDate(now);
-        note.setPath(ss.store(note.getName(), note.getPath()));
+        note.setCreationDate(now);
+//        note.setPath(ss.store(note.getName(), note.getPath()));
         nr.save(note);
     }
     
     @DeleteMapping("/auth/users/{username}/notes/{id}")
     public @ResponseBody void deleteNote(@PathVariable int id){
         Note n = nr.getOne(id);
-        if(ss.removeFile(n.getPath())){
-            nr.deleteById(id);
-        }
+//        if(ss.removeFile(n.getPath())){
+//            nr.deleteById(id);
+//        }
     }
 }
