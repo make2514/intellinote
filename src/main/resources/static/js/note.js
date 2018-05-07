@@ -6,17 +6,13 @@
 
 document.addEventListener("DOMContentLoaded", function (event) {
     const titleInput = $("#titleInput");
-    const contentInput = $("#contentInput");
+    const contentInput = $("#text-area");
     const saveBtn = $("#saveBtn");
     const updateBtn = $("#updateBtn");
     const deleteBtn = $("#deleteBtn");
     
     const curHref = window.location.href;
     const url = window.location.origin + '/auth' + window.location.pathname;
-    
-//    console.log(curHref.substring(0, curHref.length-8));
-//    console.log(titleInput);
-//    console.log(contentInput);
 
     const savedTab = $('#tab01'),
           searchTab = $('#tab02'),
@@ -30,50 +26,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
           removeBtn = $('.removeBtn'),
           searchBtn = $('.searchBtn'),
           savedArticlesContainer = $('#savedArticles'),
-          searchArticlesContainer = $('#searchArticles');
-    
-    console.log(savedArticlesContainer);
-    console.log(searchArticlesContainer);
-          
-    let articlesAll = [];
-    let articlesSaved = [];
-          
+          searchArticlesContainer = $('#searchArticles'),
+          keywordsContainer = $('#keywordSelect');
+
     let note = JSON.parse(localStorage.getItem('note'));
     console.log('note: ');
     console.log(note);
     
-//    let temp = [
-//        {
-//            author : "Nick Douglas",
-//            title : "Put Tape on Your Apple TV Remote",
-//            description : "Apple, the good design company, bundles its Apple TV with a pitch-black and horizontally symmetrical remote. This means that if you can find the remote in the dark, you’re likely to grab it by the wrong end, grasping the touchpad and clicking the wrong button…",
-//            url : "https://lifehacker.com/put-tape-on-your-apple-tv-remote-1825319793",
-//            urlToImage : "https://i.kinja-img.com/gawker-media/image/upload/s--8mhfTeH6--/c_fill,fl_progressive,g_center,h_900,q_80,w_1600/ci2n5xlowlplsjmeg9v0.jpg",
-//            publishedAt : "2018-04-19T19:00:00Z"
-//        }
-//    ];
-    
     let savedArticles = JSON.parse(localStorage.getItem('savedArticles')) === null ? [] : JSON.parse(localStorage.getItem('savedArticles'));
     console.log('articles: ');
     console.log(savedArticles);
-
-    let toBeAddedArticles = [
-        {
-            name : "article1",
-            link : "article1.com"
-        }
-//        {
-//            name : "funny article 2",
-//            link : "hihihi"
-//        }
-    ];
     
-    let toBeRemovedArticles = [
-//        {
-//            name : "funny article 2",
-//            link : "hihihi"
-//        }
-    ];
+    let articlesAll = [];
+
+    let toBeAddedArticles = [];
+    
+    let toBeRemovedArticles = [];
     
 //    let searchArticles = [
 //        {
@@ -140,31 +108,37 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $tabContents.not(':first').hide();
 
     $tabButtonItem.find('a').on('click', function(e) {
-      var target = $(this).attr('href');
+        var target = $(this).attr('href');
 
-      $tabButtonItem.removeClass(activeClass);
-      $(this).parent().addClass(activeClass);
-      $tabSelect.val(target);
-      $tabContents.hide();
-      $(target).show();
-      e.preventDefault();
+        $tabButtonItem.removeClass(activeClass);
+        $(this).parent().addClass(activeClass);
+        $tabSelect.val(target);
+        $tabContents.hide();
+        $(target).show();
+        e.preventDefault();
     });
 
     $tabSelect.on('change', function() {
-      var target = $(this).val(),
-          targetSelectNum = $(this).prop('selectedIndex');
+        var target = $(this).val(),
+            targetSelectNum = $(this).prop('selectedIndex');
 
-      $tabButtonItem.removeClass(activeClass);
-      $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
-      $tabContents.hide();
-      $(target).show();
+        $tabButtonItem.removeClass(activeClass);
+        $tabButtonItem.eq(targetSelectNum).addClass(activeClass);
+        $tabContents.hide();
+        $(target).show();
     });
 
     searchTab.on('click', '.aBtn', function(e){
         let articleUrl = $(this).parent().find('a').attr('href');
-        let article = findArticleFromAll(articleUrl);
-        if (!savedContainsAtricle(article)) {
-            //adds article to note.js toBeAddedArticles array
+        let article = findArticleFromAll(articleUrl) === null ? findArticleFromSaved(articleUrl) : findArticleFromAll(articleUrl);
+        if(containsArticle(article, toBeRemovedArticles)){
+            //remove article from toBeRemovedArticles array
+            let index = toBeRemovedArticles.indexOf(article);
+            toBeRemovedArticles.splice(index, 1);
+            $(this).parent().remove();
+            addArticle(article, savedArticlesContainer, "-");
+        }else if (!containsArticle(article, savedArticles)) {
+            //adds article to toBeAddedArticles array
             toBeAddedArticles.push(article);
             console.log("toBeAddedArticles");
             console.log(toBeAddedArticles);
@@ -176,40 +150,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     savedTab.on('click', '.aBtn', function(){
         let articleUrl = $(this).parent().find('a').attr('href');
-        let article = findArticleFromAll(articleUrl);
-        if (savedContainsAtricle(article)) {
-            //adds article to note.js toBeAddedArticles array
+        let article = findArticleFromAll(articleUrl) === null ? findArticleFromSaved(articleUrl) : findArticleFromAll(articleUrl);
+        if(containsArticle(article, savedArticles)) {
+            //adds article to toBeAddedArticles array
             toBeRemovedArticles.push(article);
             console.log("toBeRemovedArticles");
             console.log(toBeRemovedArticles);
         }else{
+            //remove article from toBeAddedArticles array
             let index = toBeAddedArticles.indexOf(article);
             toBeAddedArticles.splice(index, 1);
             console.log("toBeAddedArticles");
             console.log(toBeAddedArticles);
         }
-//      $(this).parent().remove();
-//      addArticle(searchArticlesContainer, "+");
         $(this).parent().remove();
         addArticle(article, searchArticlesContainer, "+");
     });
-    
-
-    function addArticle(article, div, sign){
-      let a = `
-        <div class="article">
-          <p><b><a href="${article.url}">${article.title}</a></b></p>
-          <p>${article.description}</p>
-          <button class="aBtn">${sign}</button>
-        </div>
-      `;
-      div[0].innerHTML+=a;
-    }
-    
-    function updateNoteInfo(){
-        note.name = titleInput.val();
-        note.path = contentInput.val();
-    }
 
     updateBtn.on("click", function(){
         updateNoteInfo();
@@ -226,13 +182,11 @@ document.addEventListener("DOMContentLoaded", function (event) {
         fetch(url, init("PUT", note))
             .then(response => {
                 if(toBeAddedArticles.length !== 0){
-                    console.log(url + '/articles');
                     fetch(url + '/articles', init("POST", toBeAddedArticles));
                 }
             })
             .then(response => {
                 if(toBeRemovedArticles.length !== 0){
-                    console.log(url + '/articles/remove');
                     fetch(url + '/articles/remove', init("POST", toBeRemovedArticles))
                         .then(response => console.log(response));
                 }
@@ -241,6 +195,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
     saveBtn.on("click", function(){
         updateNoteInfo();
+        if(note.name === "") note.name = "Untitled document";
+        
         let init = (m, toBeSentObj) => {
             let obj = {
                 method: m,
@@ -252,18 +208,17 @@ document.addEventListener("DOMContentLoaded", function (event) {
             return obj;
         };
         let aUrl = url.substring(0, url.length-8);
-        console.log(aUrl);
         fetch(url, init("POST", note))
             .then(response => response.text())
             .then(str => {
+                let redirectUrl = curHref.substring(0, curHref.length-8);
                 if(toBeAddedArticles.length !== 0){
-                    console.log(aUrl+"/"+str+"/articles");
                     fetch(aUrl+"/"+str+"/articles", init("POST", toBeAddedArticles))
                         .then(response => {
-                            let redirectUrl = curHref.substring(0, curHref.length-8);
                             window.location.replace(redirectUrl);
                         });
                 }
+                window.location.replace(redirectUrl);
             });
     });
     
@@ -278,8 +233,47 @@ document.addEventListener("DOMContentLoaded", function (event) {
     });
     
     searchBtn.on('click', function(){
+        resetSearchArticles();
         loadArticles(contentInput.val());
     });
+    
+    keywordsContainer.on('change', function(){
+        let keyword = $(this).val(); 
+        if(keyword === 'all'){
+           resetSearchArticles();
+           setAllArticles();
+        }else{
+            searchArticlesContainer[0].innerHTML = "";
+            showArticlesOfKeyword(findArticlesFromKeyword(keyword));
+        }
+    });
+    
+    //reset articles div and select input
+    function resetSearchArticles(){
+        searchArticlesContainer[0].innerHTML = "";
+        keywordsContainer[0].innerHTML = "<option value='all'>ALL</option>";
+    }
+    
+    function addArticle(article, div, sign){
+        let a = `
+            <div class="article">
+                <p><b><a href="${article.url}" target="_blank">${article.title}</a></b></p>
+                <p>${article.description}</p>
+                <button class="aBtn">${sign}</button>
+            </div>
+        `;
+        div[0].innerHTML+=a;
+    }
+    
+    function addKeyword(word){
+        let opt = `<option value="${word}">${word.toUpperCase()}</option>`;
+        keywordsContainer[0].innerHTML+=opt;
+    }
+    
+    function updateNoteInfo(){
+        note.name = titleInput.val();
+        note.path = contentInput.val();
+    }
     
     function loadArticles(text) {
         fetch(window.location.origin + '/news', {
@@ -296,59 +290,70 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //            setAllArticles();
       }
 
-      //sets Atricles to unordered list into element with class js-article-container-all
-      function setAllArticles() {
+    //take all articles from array to display
+    function setAllArticles() {
+        console.log("articlesAll: ");
         console.log(articlesAll);
-        searchArticlesContainer.innerHTML = '';
 
         for (let keyword of articlesAll) {
-//          let listElement = document.createElement('li');
-//          let list = document.createElement('ul');
-//          listElement.innerHTML = `<p>${keyword.word}</p>`;
-//          listElement.appendChild(list);
-//          let keyword = `<p>${keyword.word}</p>`
-
-          for (let article of keyword.articles) {
-            addArticle(article ,searchArticlesContainer, "+");
-                
-          }
-        }
-      }
-
-      function seticles() {
-        let savedContainer = document.querySelector('.js-article-container-saved');
-        savedContainer.innerHTML = '';
-
-        for (let a of articlesSaved) {
-          savedContainer.innerHTML +=
-          `<li class="article">
-            <a href="${a.url}">
-              <p class="article-header">${a.title}</p>
-            </a>
-            <button class="js-add-article">+</button>
-          </li>`;
-        }
-      }
-
-      function findArticleFromAll(articleUrl) {
-        for (let keyword of articlesAll) {
-          for (let article of keyword.articles) {
-            if (article.url === articleUrl) {
-              return article;
+            addKeyword(keyword.word);
+            for (let article of keyword.articles) {
+                if(!containsArticle(article, savedArticles) || containsArticle(article, toBeRemovedArticles)){
+                    addArticle(article ,searchArticlesContainer, "+");
+                }
             }
-          }
         }
-      }
+    }
+    
+    //find article from articlesAll array
+    function findArticleFromAll(articleUrl) {
+        for (let keyword of articlesAll) {
+            for (let article of keyword.articles) {
+                if (article.url === articleUrl) {
+                  return article;
+                }
+            }
+        }
+        return null;
+    }
+    
+    //find article from savedArticles array
+    function findArticleFromSaved(articleUrl){
+        for(let article of savedArticles){
+            if(article.url === articleUrl){
+                return article;
+            }
+        }
+        return null;
+    }
 
-      //checks form note.js savedArticles array if it contains article already
-      function savedContainsAtricle(article) {
-        for (let a of savedArticles) {
-          if (a.url === article.url) {
-              console.log(a);
-            return true;
-          }
+    //checks form savedArticles array if it contains article already
+    function containsArticle(article, articlesArr) {
+        for (let a of articlesArr) {
+            if (a.url === article.url) {
+                console.log(a);
+                return true;
+            }
         }
         return false;
-      }
+    }
+    
+    function findArticlesFromKeyword(word){
+        for(let keyword of articlesAll){
+            if(keyword.word === word){
+                return keyword.articles;
+            }
+        }
+        return [];
+    }
+    
+    function showArticlesOfKeyword(articlesArr){
+        for(let article of articlesArr){
+            if(!containsArticle(article, savedArticles) || containsArticle(article, toBeRemovedArticles)){
+                addArticle(article ,searchArticlesContainer, "+");
+            }
+        }
+    }
+    
 });
 
