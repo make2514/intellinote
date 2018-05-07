@@ -9,16 +9,62 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link th:href="@{/css/login.css}" rel="stylesheet"/>
+        <link th:href="@{/css/util.css}" rel="stylesheet"/>
+        <link th:href="@{/css/regis.css}" rel="stylesheet"/>
     </head>
     <body>
-        <div th:if="${errors}">
-            <p th:each="error : ${errors}" th:text="${error}"></p>
+        <div class="limiter">
+            <div class="container-login100" id="container-login">
+                <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-50">
+                    <form class="login100-form validate-form" name="Forms" th:action="@{/users/registration}" th:object="${user}" method="post">
+                        <span class="login100-form-title p-b-33">
+                            Register Form
+                        </span>
+                        <div th:if="${errors}">
+                            <p th:each="error : ${errors}" th:text="${error}"></p>
+                        </div>
+                        <div class="wrap-input100 validate-input">
+                            <input th:field="*{username}" required class="input100" type="text" name="username" placeholder="Username">
+                            <span class="focus-input100-1"></span>
+                            <span class="focus-input100-2"></span>
+                        </div>
+
+                        <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                            <input th:field="*{password}" class="input100" id="pass-input-reg" type="password" name="pass" placeholder="Password">
+                            <img src="/img/show-password.svg" alt='Show' name='password-image' id='psimg-reg1' class="showPassImg"/>
+                            <span class="focus-input100-1"></span>
+                            <span class="focus-input100-2"></span>
+
+                        </div>
+
+                        <div class="wrap-input100 rs1 validate-input" data-validate="Password is required">
+                            <input class="input100" id="pass-input-reg-rep" type="password" name="pass" placeholder="Repeat Password">
+                            <img src="/img/show-password.svg" alt='Show' name='password-image' id='psimg-reg2' class="showPassImg"/>
+
+                            <span class="focus-input100-1"></span>
+                            <span class="focus-input100-2"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-20">
+                            <input class="login100-form-btn" type="submit" value="Sign Up" />
+                        </div>
+
+                        <div class="text-center p-t-45 p-b-4">
+                            <span class="txt1">
+                                Are you a member?
+                            </span>
+
+                            <a th:href="@{/login}" class="txt2 hov1 sign-in" onclick="toggleHidden()">
+                                Sign in
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <form th:action="@{/users/registration}" th:object="${user}" method="post">
-            <div><label> User Name : <input type="text" name="username" th:field="*{username}" required/> </label></div>
-            <div><label> Password: <input type="password" name="password" th:field="*{password}" required/> </label></div>
-            <div><label> Retype Password: <input type="re-password" name="re-password" required/> </label></div>
-            <div><input type="submit" value="Sign Up"/></div>
-        </form>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script th:src="@{/js/login.js}"></script>
+        <script th:src="@{/js/registration.js}"></script>
     </body>
 </html>
