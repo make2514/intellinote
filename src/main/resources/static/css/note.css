@@ -217,6 +217,10 @@ input:focus, button:focus {
     height: 93%;
 }
 
+#searchArticles{
+    max-height: 280px;
+}
+
 #loader {
   width: 150px;
   height: 50px;
