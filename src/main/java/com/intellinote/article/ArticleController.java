@@ -63,7 +63,7 @@ public class ArticleController {
     }
     
     @PostMapping("/remove")
-    public void removeArticleFromNote(@RequestBody List<Article> articles, @PathVariable int userId, @PathVariable int noteId){
+    public void removeArticleFromNote(@RequestBody List<Article> articles, @PathVariable int noteId){
         Note note = nr.getOne(noteId);
         if(articles.size() > 0){        
             articles.forEach(article -> {

@@ -73,7 +73,7 @@ and open the template in the editor.
 
         <section id="text-edit-section">
 
-            <input type="text" class="note-name" placeholder="Unitiled document" th:value="${name}" />
+            <input type="text" id="titleInput" class="note-name" placeholder="Untitled document" th:value="${name}" />
 
             <div class="text-options">
                 <button type="button" class="btn glyphicon glyphicon-font flex-item"></button>
@@ -102,7 +102,7 @@ and open the template in the editor.
                     
                     <div id="savedArticles" class="articles">
                         <div class="article" th:if="${articles != null}" th:each="a : ${articles}" >
-                            <p><a th:href="@{${a.url}}" th:text="${a.title}"/></p>
+                            <p><b><a th:href="@{${a.url}}" th:text="${a.title}" target="_blank"/></b></p>
                             <p th:text="${a.description}"/>
                             <button class="aBtn">-</button>
                         </div>
@@ -110,17 +110,18 @@ and open the template in the editor.
                 </div>
                 <div id="tab02" class="tab-contents">
                     <button class="searchBtn">Search</button>
-                    <div class="input-container">
+<!--                    <div class="input-container">
                         <input type="text" placeholder="Type what you want to search">
+                    </div>-->
+                    <div id="keywords">
+                        <label for="keywordSelect">Keywords: </label>
+                        <select id="keywordSelect">
+                            <option value="all">ALL</option>
+                        </select>
                     </div>
                     <div id="searchArticles" class="articles">
                         
                     </div>
-    <!--                <div class="article">
-                        <p><b>Header</b></p>
-                        <p><em>Description</em></p>
-                        <button class="aBtn">+</button>
-                    </div>-->
                 </div>
             </div>
             <!--</aside>-->
