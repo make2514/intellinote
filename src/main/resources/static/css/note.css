@@ -16,8 +16,8 @@ body {
 
 #text-edit-section{
     grid-template-columns: 70% 30%;
-    grid-template-rows: 75px 25px 1fr;
-    grid-template-areas: "name ." "options articles" "text articles";
+    grid-template-rows: 75px 1fr;
+    grid-template-areas: "name ." "text-editor articles";
 }
 
 .tabs {
@@ -210,5 +210,10 @@ input:focus, button:focus {
     font-size: 1em;
     font-weight: bold;
     visibility: hidden;
+}
+
+#editor-container{
+    grid-area: text-editor;
+    height: 93%;
 }
 
