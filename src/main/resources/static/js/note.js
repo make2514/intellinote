@@ -248,8 +248,10 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     searchBtn.on('click', function(){
         resetSearchArticles();
-        console.log(quill.getText());
-        loadArticles(quill.getText());
+        $('#loader').css('display', 'block');
+        setTimeout(function(){
+            loadArticles(quill.getText());
+        }, 1000);
     });
     
     keywordsContainer.on('change', function(){
@@ -308,8 +310,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         })
         .then(response => response.json())
         .then(function(articleJson) {
-          articlesAll = articleJson;
-          setAllArticles();
+            $('#loader').css('display', 'none');
+            articlesAll = articleJson;
+            setAllArticles();
         });
 //            articlesAll = searchArticles;
 //            setAllArticles();
