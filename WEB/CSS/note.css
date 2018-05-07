@@ -1,0 +1,152 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Apr 29, 2018, 11:49:07 PM
+    Author     : minhdao
+*/
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  box-sizing: border-box;
+}
+.tabs {
+  /*max-width: 440px;*/
+  /*margin: 0 auto;*/
+  padding: 0 20px;
+}
+#tab-button {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#tab-button li {
+  display: table-cell;
+  width: 20%;
+}
+#tab-button li a {
+  display: block;
+  padding: .5em;
+  background: #eee;
+  border: 1px solid #ddd;
+  text-align: center;
+  color: #000;
+  text-decoration: none;
+}
+#tab-button li:not(:first-child) a {
+  border-left: none;
+}
+#tab-button li a:hover,
+#tab-button .is-active a {
+  border-bottom-color: transparent;
+  background: #fff;
+}
+.tab-contents {
+  padding: .5em 1em 1em;
+  border: 1px solid #ddd;
+  border-top: none;
+}
+
+/*.tab-button-outer {
+  display: none;
+}*/
+/*.tab-contents {
+  margin-top: 20px;
+}*/
+
+.article{
+   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  padding: 10px 20px;
+  margin-top: 10px;
+  position: relative;
+}
+
+.article a {
+  text-decoration: none;
+  color: black;
+}
+
+.article a:hover{
+  color: green;
+}
+
+.article>p{
+    font-size: 1.1em;
+}
+
+.article p+p{
+  font-size: 0.9em;
+}
+
+.article p{
+  margin: 5px;
+}
+
+.article button{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 35px;
+  opacity : 0;
+  transition: opacity 0.2s;
+  background-color: #94C04F;
+}
+
+/*.article:hover{
+  cursor: pointer;
+}*/
+
+.article:hover .aBtn{
+  opacity: 1;
+}
+
+.searchBtn {
+  border: none;
+  width: 100%;
+  background-color: #94C04F;
+  padding: 10px;
+  color: white;
+}
+
+.hidden{
+  display:none;
+}
+
+.aBtn{
+  border: none;
+  width: 100%;
+  background-color: #4db6ac;
+  padding: 10px;
+}
+
+.input-container{
+  margin-top: 10px;
+  
+}
+
+.input-container input{
+  width: 100%;
+  margin: 0; 
+  padding: 10px 0px; 
+  padding-left: 3%;
+  border: 0;
+  display: block;
+  background-color: #eeeeee;
+  font-size: 0.8em;
+}
+
+input:focus, button:focus {
+  outline: none;
+}
+
+.aBtn:hover, .searchBtn:hover{
+  background-color: #81a845;
+  cursor: pointer;
+}
+

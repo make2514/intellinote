@@ -1,4 +1,4 @@
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     const saveBtn = $("#saveBtn");
     const updateBtn = $("#updateBtn");
     const deleteBtn = $("#deleteBtn");
-    
+
     const curHref = window.location.href;
     const url = window.location.origin + '/auth' + window.location.pathname;
 
@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     let note = JSON.parse(localStorage.getItem('note'));
     console.log('note: ');
     console.log(note);
-    
+
     let savedArticles = JSON.parse(localStorage.getItem('savedArticles')) === null ? [] : JSON.parse(localStorage.getItem('savedArticles'));
     console.log('articles: ');
     console.log(savedArticles);
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //                    description : "Apple likes to say that it cares more about your privacy than other tech giants like Facebook, Google, and Amazon, but does that claim actually hold up? It turns out the answer is a pretty resounding yes. Read more...",
 //                    url : "https://lifehacker.com/heres-what-apple-knows-about-you-spoiler-not-much-1825779350",
 //                    urlToImage : "https://i.kinja-img.com/gawker-media/image/upload/s--5gWPbN-1--/c_fill,fl_progressive,g_center,h_900,q_80,w_1600/kgukj6yykudzspxsy71e.jpg",
-//                    publishedAt : "2018-05-04T19:45:00Z" 
+//                    publishedAt : "2018-05-04T19:45:00Z"
 //                },
 //                {
 //                    author : "David Murphy",
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //                    description : "Before we begin, Windows users, let’s start the affirmation: We use Windows. We all agree that iTunes has a terrible design. We will throw a party if Apple ever modernizes its app, but we hate that iTunes is the best possible option for synchronizing content …",
 //                    url : "https://lifehacker.com/if-youre-an-iphone-loving-windows-user-youll-want-itun-1825606649",
 //                    urlToImage : "https://i.kinja-img.com/gawker-media/image/upload/s--yVuMwpgK--/c_fill,fl_progressive,g_center,h_900,q_80,w_1600/am5cj6t7hc7zt2pwhlk4.jpg",
-//                    publishedAt : "2018-04-27T19:15:00Z" 
+//                    publishedAt : "2018-04-27T19:15:00Z"
 //                },
 //                {
 //                    author : "David Murphy",
@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $(this).parent().remove();
             addArticle(article, savedArticlesContainer, "-");
         }
-        
+
     });
 
     savedTab.on('click', '.aBtn', function(){
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 }
             });
     });
-    
+
     saveBtn.on("click", function(){
         updateNoteInfo();
         if(note.name === "") note.name = "Untitled document";
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 window.location.replace(redirectUrl);
             });
     });
-    
+
     deleteBtn.on("click", function(){
         fetch(url, {
             method : "DELETE"
@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 window.location.replace(redirectUrl);
             });
     });
-    
+
     searchBtn.on('click', function(){
         resetSearchArticles();
         loadArticles(contentInput.val());
@@ -274,7 +274,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         note.name = titleInput.val();
         note.path = contentInput.val();
     }
-    
+
+//ARTICLES!!!
+
     function loadArticles(text) {
         fetch(window.location.origin + '/news', {
           'method': 'POST',
@@ -356,4 +358,3 @@ document.addEventListener("DOMContentLoaded", function (event) {
     }
     
 });
-
