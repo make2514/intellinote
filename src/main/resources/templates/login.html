@@ -21,7 +21,12 @@ and open the template in the editor.
                         <span class="login100-form-title p-b-33">
                             Account Login
                         </span>
-
+                        <div th:if="${param.error}">
+                            Invalid username and password.
+                        </div>
+                        <div th:if="${param.logout}">
+                            You have been logged out.
+                        </div>
                         <div class="wrap-input100 validate-input">
                             <input th:field="*{username}" required class="input100" type="text" name="username" placeholder="Username">
                             <span class="focus-input100-1"></span>
