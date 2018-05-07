@@ -28,6 +28,7 @@ import java.util.List;
  * Requires api from: <a href="https://newsapi.org/">https://newsapi.org/</a> <br>
  * By default NewsApi constructor looks for system variable NEWS_API for the api key.
  * This key is required to when making searches to api.
+ * @author Markus
 */
 public class NewsApi {
 

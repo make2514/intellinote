@@ -4,6 +4,9 @@ import com.intellinote.article.Article;
 
 import java.util.List;
 
+/**
+ * @author Markus
+ */
 public class Keyword implements Comparable<Keyword> {
 
     private String word;

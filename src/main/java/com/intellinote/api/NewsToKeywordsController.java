@@ -17,6 +17,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+/**
+ * @author Markus
+ */
 @Controller
 @RequestMapping("/news")
 public class NewsToKeywordsController {
