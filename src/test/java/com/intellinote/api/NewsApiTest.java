@@ -8,9 +8,10 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-//DOESN'T WORK IN TRAVIS YET
+//DOESN'T WORK IN TRAVIS
 
 public class NewsApiTest {
+
 
     /*
     NewsApi newsApi;
