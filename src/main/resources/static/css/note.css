@@ -16,7 +16,7 @@ body {
 
 #text-edit-section{
     grid-template-columns: 70% 30%;
-    grid-template-rows: 40px 25px 1fr;
+    grid-template-rows: 50px 25px 1fr;
     grid-template-areas: "name ." "options articles" "text articles";
 }
 
@@ -65,7 +65,7 @@ body {
   padding: 1em;
   border: 1px solid #ddd;
   border-top: none;
-  height: 100%;
+  height: 93%;
   overflow: scroll;
 }
 
@@ -183,5 +183,15 @@ input:focus, button:focus {
 .aBtn:hover, .searchBtn:hover{
   background-color: #81a845;
   cursor: pointer;
+}
+
+.note-name{
+    color: black;
+    padding-left: 5px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border: none;
+    border-bottom: 1px solid #c4c4c4;
+    font-size: 1.3em;
 }
 

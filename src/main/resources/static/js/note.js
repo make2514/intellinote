@@ -272,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     
     function updateNoteInfo(){
         note.name = titleInput.val();
-        note.path = contentInput.val();
+        note.content = contentInput.val();
     }
 
 //ARTICLES!!!
