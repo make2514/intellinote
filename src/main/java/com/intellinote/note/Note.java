@@ -38,8 +38,8 @@ public class Note {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
-    @Column(columnDefinition="text")
-    private String path;
+    @Column(columnDefinition="longtext")
+    private String content;
     private Date creationDate;
     
     @ManyToOne
@@ -55,10 +55,10 @@ public class Note {
         
     }
 
-    public Note(int id, String name, String path, User user) {
+    public Note(int id, String name, String content, User user) {
         this.id = id;
         this.name = name;
-        this.path = path;
+        this.content = content;
         this.user = user;
     }
 
@@ -78,12 +78,12 @@ public class Note {
         this.name = name;
     }
 
-    public String getPath() {
-        return path;
+    public String getContent() {
+        return content;
     }
 
-    public void setPath(String path) {
-        this.path = path;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public User getUser() {
