@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +38,7 @@ public class Note {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
+    @Column(columnDefinition="text")
     private String path;
     private Date creationDate;
     

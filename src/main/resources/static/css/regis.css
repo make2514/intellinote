@@ -1,0 +1,16 @@
+#psimg-reg1,
+#psimg-reg2 {
+    height: 45px;
+    width: 35px;
+    position: absolute;
+    right: 1%;
+    top: 15px;
+}
+
+.container-regis {
+    position: absolute;
+}
+
+.hidden {
+    display: none;
+}

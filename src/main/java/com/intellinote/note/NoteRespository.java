@@ -14,4 +14,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface NoteRespository extends JpaRepository<Note, Integer> {
     public List<Note> findByUserUsername(String username);
+    public List<Note> findByName(String name);
 }

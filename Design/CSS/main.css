@@ -1,0 +1,261 @@
+/* palette: 
+old background: #BFE1BF
+navbar-inverse: #222
+optional: 3E5170
+menu hover: #A0CF5F
+intellinote logo: #94C04F
+*/
+
+/* MAIN */
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+head {}
+
+body {
+    margin: 10px
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    font-family: font-family: Arial, Helvetica, sans-serif;
+
+
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 4.4% 95.6%;
+    grid-template-rows: 8% 87% 5%;
+    grid-template-areas: "nav nav" 
+                         "menu section" 
+                         "menu footer";
+
+}
+
+.intellinote {
+    color: #94C04F !important;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+ul.nav a:hover {
+    color: #A0CF5F !important;
+}
+
+.main-nav {
+    border-radius: 0px;
+    grid-area: nav;
+    position: fixed;
+    width: 100%;
+    max-height: 50px;
+    overflow: hidden;
+}
+
+.search-container{
+    margin-left: 5em;
+    float: right;
+}
+
+#search-box{
+    width: 15em;
+    height: 2.55em;
+    margin-top: 0.6em;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.profile{
+    position: fixed;
+    left: 68em; 
+}
+
+.signout-btn {
+    background-color: inherit;
+    color: #999;
+    line-height: 35px;
+    position: fixed;
+    float: right;
+    right: 6.5em;
+}
+
+.side-nav {
+    grid-area: menu;
+    border: 1px #222 !important;
+    border-radius: 0px;
+    padding-top: 2em;
+    margin: 0px;
+    height: 91.5%;
+    position: fixed;
+    bottom: 0em;
+    top: 50px;
+
+
+}
+
+.side-nav-btn {
+    color: white;
+    background-color: #222;
+    font-size: 25px;
+
+}
+
+ul.nav button:hover {
+    color: #A0CF5F !important;
+}
+
+footer {
+
+    text-align: center;
+
+    left: 40%;
+    right: 40%;
+    color: #222;
+    grid-area: footer;
+
+
+}
+
+/*NOTE EDIT VIEW*/
+
+.note-name {
+    grid-area: name;
+    width: 20em;
+}
+
+/*Flex container of buttons on top of text editor*/
+
+.text-options {
+    height: 40px;
+    background-color: #f6f6f6;
+    grid-area: options;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 0.1em;
+    border-radius: 0.5em;
+    border: solid 1.6px RGBA(211, 211, 211, 0.3);
+
+}
+
+/*Buttons on top of text editor*/
+
+.flex-item {
+    padding: 0.6em;
+    background-color: #f6f6f6 !important;
+    /*border-radius: 0px !important;*/
+    color: black !important;
+
+
+
+}
+
+/*Font-size button - text editor */
+
+.font-size-drop {
+    background-color: #f6f6f6 !important;
+    border-radius: 0px !important;
+    height: inherit;
+
+}
+
+#text-edit-section {
+    display: grid;
+    grid-template-columns: 70% 28%;
+    grid-template-rows: 5% 7% 78%;
+    grid-template-areas: "name ." 
+                         "options ." 
+                         "text articles";
+    grid-area: section;
+    margin: 1.85em;
+
+}
+
+#text-area {
+    grid-area: text;
+    margin-top: 0.7em;
+
+
+}
+
+#article-container {
+    grid-area: articles;
+    word-wrap: break-word;
+    border: solid 1.6px lightgrey;
+    max-height: 500px;
+    padding: 1em;
+    max-width: 320px;
+    background-color: white;
+
+}
+
+.article-title {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.article-info {}
+
+/*HOME VIEW*/
+
+.home-header {
+    grid-area: head;
+}
+
+/* welcome message */
+
+.greeting {
+    font-size: 25px;
+}
+
+/* note flex container */
+
+.all-notes {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    grid-area: notes;
+
+
+}
+
+.note {
+    background-color: #F3F3F3;
+    border: solid 1.6px RGBA(211, 211, 211, 0.4);
+    height: 3em;
+    width: 50em;
+    border-radius: 0.2em;
+
+}
+
+#select-note-section {
+    grid-area: section;
+    padding: 1em;
+    display: grid;
+    grid-template-rows: 25% 75%;
+    grid-template-columns: %;
+    grid-template-areas: "head" 
+                         "notes";
+}
+
+.note-name {
+    /*    padding: 0.5em; */
+    line-height: 2em;
+    font-weight: bold;
+    text-align: left;
+}

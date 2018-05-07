@@ -6,21 +6,63 @@ and open the template in the editor.
 -->
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>TODO supply a title</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> <!-- th:href="@{x}" necessary? -->
+        
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+        
     </head>
-    <body>
-        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-        <ul>
-            <li  th:each="note : ${notes}">
-                <a th:text="${note.name}" th:href="@{'./notes/' + ${note.id}}"/>
-                <p th:text="${note.creationDate}"></p>
-            </li>
-        </ul>
-        <a href="./notes/newnote">Add new note</a>
+    <body class="main-layout">
+        <nav class="navbar navbar-inverse main-nav">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand intellinote" href="home.html">Intellinote</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="#">Settings</a></li>
+                    <li class="signout">
+                        <form th:action="@{/logout}" method="post">
+                            <input type="submit" value="Sign Out"/>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <nav class="side-nav navbar navbar-inverse">
+            <div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <button onclick="window.location='./notes/newnote';" type="button" class="btn glyphicon glyphicon-file side-nav-btn"data-toggle="tooltip" data-placement="right" title="Create new note"></button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <section id="select-note-section">
+            <div class="home-header">
+                <h1  class="greeting" th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+            </div>
+            <div class="all-notes">
+                <h4 class="notes-heading">Your notes:</h4>
+                <ul>
+                    <li class="note-list-item"  th:each="note : ${notes}">
+                        <a class="btn note grow" th:href="@{'./notes/' + ${note.id}}" type="button" >
+                            <p th:text="${note.name}" class="note-name">${note.name}</p>
+                            <p th:text="${note.creationDate}" class="note-date">${note.creationDate}</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
     </body>
 </html>

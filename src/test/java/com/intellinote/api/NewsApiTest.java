@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 
 public class NewsApiTest {
 
+    /*
     NewsApi newsApi;
 
     @Before
@@ -35,4 +36,6 @@ public class NewsApiTest {
         List<Article> response = newsApi.getArticles("key");
         assertEquals(response.size(), 6);
     }
+    
+    */
 }

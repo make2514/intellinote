@@ -20,20 +20,14 @@ body {
     height: 100%;
     width: 100%;
     font-family: font-family: Arial, Helvetica, sans-serif;
-
-
 }
 
 .main-layout {
     display: grid;
     grid-template-columns: 4.4% 95.6%;
     grid-template-rows: 8% 87% 5%;
-    grid-template-areas: "nav nav" 
-                         "menu section" 
-                         "menu footer";
-
+    grid-template-areas: "nav nav" "menu section" "menu footer";
 }
-
 
 .intellinote {
     color: #94C04F !important;
@@ -41,12 +35,9 @@ body {
     font-weight: bold;
 }
 
-
-
 ul.nav a:hover {
     color: #A0CF5F !important;
 }
-
 
 .main-nav {
     border-radius: 0px;
@@ -54,16 +45,12 @@ ul.nav a:hover {
     position: fixed;
     width: 100%;
     max-height: 50px;
-
-
 }
-
 
 .signout-btn {
     background-color: inherit;
     color: #999;
     line-height: 35px;
-
 }
 
 .side-nav {
@@ -76,32 +63,30 @@ ul.nav a:hover {
     position: fixed;
     bottom: 0em;
     top: 50px;
-
-
 }
 
 .side-nav-btn {
     color: white;
     background-color: #222;
     font-size: 25px;
+}
 
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 ul.nav button:hover {
     color: #A0CF5F !important;
 }
 
-
 footer {
-
     text-align: center;
-
     left: 40%;
     right: 40%;
     color: #222;
     grid-area: footer;
-
-
 }
 
 /*NOTE EDIT VIEW*/
@@ -122,7 +107,6 @@ footer {
     padding-bottom: 0.1em;
     border-radius: 0.5em;
     border: solid 1.6px RGBA(211, 211, 211, 0.3);
-
 }
 
 /*Buttons on top of text editor*/
@@ -132,9 +116,6 @@ footer {
     background-color: #f6f6f6 !important;
     /*border-radius: 0px !important;*/
     color: black !important;
-
-
-
 }
 
 /*Font-size button - text editor */
@@ -143,30 +124,21 @@ footer {
     background-color: #f6f6f6 !important;
     border-radius: 0px !important;
     height: inherit;
-
 }
-
 
 #text-edit-section {
     display: grid;
     grid-template-columns: 70% 28%;
     grid-template-rows: 5% 7% 78%;
-    grid-template-areas: "name ." 
-                         "options ." 
-                         "text articles";
+    grid-template-areas: "name ." "options ." "text articles";
     grid-area: section;
     margin: 1.85em;
-
 }
 
 #text-area {
     grid-area: text;
     margin-top: 0.7em;
-
-
 }
-
-
 
 #article-container {
     grid-area: articles;
@@ -176,10 +148,7 @@ footer {
     padding: 1em;
     max-width: 320px;
     background-color: white;
-
 }
-
-
 
 .article-title {
     font-size: 1.2em;
@@ -198,26 +167,26 @@ footer {
 
 .greeting {
     font-size: 25px;
+    margin-left: 1.6em;
 }
 
-.new-note-btn{
+.new-note-btn {
     background-color: #94C04F;
     color: #222;
     border: #94C04F;
-    
 }
 
 /* 
 nav txt #999
         #222
-        #94C04F; */ 
+        #94C04F; */
 
-a.btn:hover{
+a.btn:hover {
     background-color: #94C04F;
-    color: #FFF ;
+    color: #FFF;
 }
 
-.notes-heading{
+.notes-heading {
     margin-left: 2.2em;
     font-weight: bold;
     color: #222;
@@ -231,12 +200,12 @@ a.btn:hover{
     flex-wrap: wrap;
     grid-area: notes;
     list-style-type: none;
-
 }
 
-.note-list-item{
+.note-list-item {
     list-style-type: none;
 }
+
 .note {
     background-color: #F3F3F3;
     border: solid 1.6px RGBA(211, 211, 211, 0.4);
@@ -249,12 +218,7 @@ a.btn:hover{
     font-weight: bold;
     text-decoration: none !important;
     text-align: left;
-    
-
 }
-
-
-
 
 #select-note-section {
     grid-area: section;
@@ -262,8 +226,7 @@ a.btn:hover{
     display: grid;
     grid-template-rows: 30% 70%;
     grid-template-columns: %;
-    grid-template-areas: "head" 
-                         "notes";
+    grid-template-areas: "head" "notes";
 }
 
 .note-name {
@@ -274,10 +237,9 @@ a.btn:hover{
     text-align: left;
     padding: 0;
     margin: 0;
-    
-    
 }
-.note-date{
+
+.note-date {
     text-align: left;
     font-weight: normal;
     color: #222;
@@ -285,5 +247,25 @@ a.btn:hover{
     margin: 0;
 }
 
-.grow { transition: all .2s ease-in-out; }
-.grow:hover { transform: scale(1.01);  box-shadow: 1.5px 1.5px 10px 1.5px #d3d3d3;  }
+.grow {
+    transition: all .2s ease-in-out;
+}
+
+.btn.note.grow:hover {
+    transform: scale(1.01);
+    box-shadow: 1.5px 1.5px 10px 1.5px #d3d3d3;
+    background: #F3F3F3;
+}
+
+input[type="submit"] {
+    background: #222222;
+    padding: 0;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 0;
+    color: #9d9d9d;
+}
+
+input[type="submit"]:hover {
+    color: #94C04F;
+}

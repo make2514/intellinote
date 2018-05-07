@@ -6,8 +6,11 @@
 package com.intellinote.note;
 
 import com.intellinote.article.ArticleRespository;
+import com.intellinote.service.StorageService;
 import com.intellinote.user.User;
 import com.intellinote.user.UserRespository;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -42,8 +45,12 @@ public class NoteController {
     @Autowired
     private UserRespository ur;
     
+     @Autowired
+    private StorageService ss;
+    
     @GetMapping("/users/{username}/notes")
     public String getAllNotes(@PathVariable String username, Model model){
+        ss.init();
         List<Note> notes = new ArrayList<>();
         nr.findByUserUsername(username).forEach(notes::add);
         model.addAttribute("notes", notes);
@@ -51,10 +58,11 @@ public class NoteController {
     }
     
     @GetMapping("/users/{username}/notes/{id}")
-    public String getNote(@PathVariable int id, Model model){
+    public String getNote(@PathVariable int id, Model model) throws FileNotFoundException{
         Note n = nr.getOne(id);
+        String content = ss.readFileToString(n.getPath());
         model.addAttribute("name", n.getName());
-        model.addAttribute("content", n.getPath());
+        model.addAttribute("content", content);
         model.addAttribute("articles", n.getArticles());
         model.addAttribute("update", "true");
         return "note";
@@ -62,33 +70,45 @@ public class NoteController {
     
     @GetMapping("/users/{username}/notes/newnote")
     public String getNewNotePage(Model model){
-        model.addAttribute("name", "Untitle");
+        model.addAttribute("name", "Untitled");
         model.addAttribute("content", "");
         model.addAttribute("save", "true");
         return "note";
     }
     
     @PostMapping("/auth/users/{username}/notes/newnote")
-    public @ResponseBody String addNote(@RequestBody Note note, @PathVariable String username){
+    public @ResponseBody String addNote(@RequestBody Note note, @PathVariable String username) throws IOException{
         Date now = new Date();
         User u = ur.findByUsername(username);
+        List<Note> notes = nr.findByName(note.getName());
         note.setUser(u);
         note.setCreationDate(now);
+        if(notes != null){
+            note.setPath(ss.store(note.getName()+"("+notes.size()+")", note.getPath()));
+        }else{
+            note.setPath(ss.store(note.getName(), note.getPath()));
+        }
         nr.save(note);
         return ""+note.getId();
     }
     
     @PutMapping("/auth/users/{username}/notes/{id}")
-    public @ResponseBody void updateNote(@RequestBody Note note, @PathVariable int id){
+    public @ResponseBody void updateNote(@RequestBody Note note, @PathVariable int id) throws IOException{
+        Date now = new Date();
         Note n = nr.getOne(id);
         note.setId(id);
         note.setUser(n.getUser());
         note.setArticles(n.getArticles());
+         note.setCreationDate(now);
+        note.setPath(ss.store(note.getName(), note.getPath()));
         nr.save(note);
     }
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/auth/users/{username}/notes/{id}")
     public @ResponseBody void deleteNote(@PathVariable int id){
-        nr.deleteById(id);
+        Note n = nr.getOne(id);
+        if(ss.removeFile(n.getPath())){
+            nr.deleteById(id);
+        }
     }
 }
