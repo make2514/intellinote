@@ -24,7 +24,9 @@ public class NaturalLanguage {
 
             ArrayList<Keyword> keywords = new ArrayList<>();
             for (Entity e : sr.getEntitiesList()) {
-                keywords.add(new Keyword(e.getName()));
+                Keyword keyword = new Keyword(e.getName());
+                keyword.setSalience(e.getSalience());
+                keywords.add(keyword);
             }
             return keywords;
         } catch (IOException e) {
@@ -37,6 +39,14 @@ public class NaturalLanguage {
         newsApi = new NewsApi();
         for (Keyword k : keywords) {
             k.setArticles(newsApi.getArticles(k.getWord()));
+        }
+    }
+
+    public void trimListBySalience(List<Keyword> keywords, float salience) {
+        for (Keyword k : keywords) {
+            if (k.getSalience() < salience) {
+                keywords.remove(k);
+            }
         }
     }
 }

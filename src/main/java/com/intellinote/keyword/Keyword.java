@@ -8,6 +8,7 @@ public class Keyword {
 
     private String word;
     private List<Article> articles;
+    private float salience;
 
     public Keyword(String word) {
         this.word = word;
@@ -32,6 +33,14 @@ public class Keyword {
 
     public void setArticles(List<Article> articles) {
         this.articles = articles;
+    }
+
+    public float getSalience() {
+        return salience;
+    }
+
+    public void setSalience(float salience) {
+        this.salience = salience;
     }
 
     @Override

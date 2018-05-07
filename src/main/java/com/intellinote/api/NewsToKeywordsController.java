@@ -63,6 +63,7 @@ public class NewsToKeywordsController {
 
     private List<Keyword> getArticleList(String text) {
         List<Keyword> articleList = nl.searchKeywords(text);
+        nl.trimListBySalience(articleList, (float)0.2);
         nl.updateArticles(articleList);
         return articleList;
     }
