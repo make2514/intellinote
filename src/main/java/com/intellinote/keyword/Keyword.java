@@ -4,7 +4,7 @@ import com.intellinote.article.Article;
 
 import java.util.List;
 
-public class Keyword {
+public class Keyword implements Comparable<Keyword> {
 
     private String word;
     private List<Article> articles;
@@ -52,5 +52,16 @@ public class Keyword {
             sb.append(a);
         }
         return sb.toString();
+    }
+
+    @Override
+    public int compareTo(Keyword o) {
+        if (salience == o.salience) {
+            return 0;
+        } else if (salience > o.salience) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

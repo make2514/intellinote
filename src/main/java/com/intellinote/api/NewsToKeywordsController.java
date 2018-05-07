@@ -43,10 +43,10 @@ public class NewsToKeywordsController {
                 System.out.print("Write GOOGLE_API_CREDENTIAL_CONTENT to key file");
                 writer.write(System.getenv("GOOGLE_API_CREDENTIAL_CONTENT"));
                 writer.close();
-                return getArticleList(text);
+                return getKeywordArticleList(text);
             }
         } else {
-            return getArticleList(text);
+            return getKeywordArticleList(text);
         }
     }
 
@@ -61,10 +61,12 @@ public class NewsToKeywordsController {
         }
     }
 
-    private List<Keyword> getArticleList(String text) {
-        List<Keyword> articleList = nl.searchKeywords(text);
-        nl.trimListBySalience(articleList, (float)0.2);
-        nl.updateArticles(articleList);
-        return articleList;
+     public List<Keyword> getKeywordArticleList(String text) {
+        List<Keyword> keywordArticleList = nl.searchKeywords(text);
+        if (keywordArticleList.size() > 3) {
+            keywordArticleList = nl.trimListByProportion(keywordArticleList, (float)0.3);
+        }
+        nl.updateArticles(keywordArticleList);
+        return keywordArticleList;
     }
 }
