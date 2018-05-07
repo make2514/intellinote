@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
     var quill = new Quill('#editor', {
         theme: 'snow'
     });
-    
+
     const titleInput = $("#titleInput");
     const contentInput = $("#text-area");
     const saveBtn = $("#saveBtn");
@@ -32,23 +32,23 @@ document.addEventListener("DOMContentLoaded", function (event) {
           savedArticlesContainer = $('#savedArticles'),
           searchArticlesContainer = $('#searchArticles'),
           keywordsContainer = $('#keywordSelect');
-          
+
     let note = JSON.parse(localStorage.getItem('note'));
     console.log('note: ');
     console.log(note);
-    
+
     setup();
 
     let savedArticles = JSON.parse(localStorage.getItem('savedArticles')) === null ? [] : JSON.parse(localStorage.getItem('savedArticles'));
     console.log('articles: ');
     console.log(savedArticles);
-    
+
     let articlesAll = [];
 
     let toBeAddedArticles = [];
-    
+
     let toBeRemovedArticles = [];
-    
+
 //    let searchArticles = [
 //        {
 //            word : "Apple",
@@ -109,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //            ]
 //        }
 //    ];
-    
+
     //set formated text to editor
     function setup(){
         if(note.content !== ""){
@@ -187,7 +187,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 method: m,
                 body: JSON.stringify(toBeSentObj),
                 headers: {
-                    "Content-type": "application/json; charset=UTF-8"
+                    'Content-type': 'application/json;',
+                    'Accept': 'application/json'
                 }
             };
             return obj;
@@ -203,14 +204,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
                     fetch(url + '/articles/remove', init("POST", toBeRemovedArticles))
                         .then(response => console.log(response));
                 }
-            })   
+            })
             .then(response => showNotification());
     });
 
     saveBtn.on("click", function(){
         updateNoteInfo();
         if(note.name === "") note.name = "Untitled document";
-        
+
         let init = (m, toBeSentObj) => {
             let obj = {
                 method: m,
@@ -248,14 +249,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     searchBtn.on('click', function(){
         resetSearchArticles();
-        $('#loader').css('display', 'block');
-        setTimeout(function(){
-            loadArticles(quill.getText());
-        }, 1000);
+        console.log(quill.getText());
+        loadArticles(quill.getText());
     });
-    
+
     keywordsContainer.on('change', function(){
-        let keyword = $(this).val(); 
+        let keyword = $(this).val();
         if(keyword === 'all'){
            resetSearchArticles();
            setAllArticles();
@@ -272,13 +271,13 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $(this).css('visibility', 'hidden');
         });
     }
-    
+
     //reset articles div and select input
     function resetSearchArticles(){
         searchArticlesContainer[0].innerHTML = "";
         keywordsContainer[0].innerHTML = "<option value='all'>ALL</option>";
     }
-    
+
     function addArticle(article, div, sign){
         let a = `
             <div class="article">
@@ -289,12 +288,12 @@ document.addEventListener("DOMContentLoaded", function (event) {
         `;
         div[0].innerHTML+=a;
     }
-    
+
     function addKeyword(word){
         let opt = `<option value="${word}">${word.toUpperCase()}</option>`;
         keywordsContainer[0].innerHTML+=opt;
     }
-    
+
     function updateNoteInfo(){
         note.name = titleInput.val();
         note.content = JSON.stringify(quill.getContents());
@@ -303,16 +302,15 @@ document.addEventListener("DOMContentLoaded", function (event) {
 //ARTICLES!!!
 
     function loadArticles(text) {
-        fetch(window.location.origin + '/news', {
-          'method': 'POST',
-          'body': text,
-          'headers': new Headers({'Content-Type': 'text/plain'})
+        fetch(window.location.origin + '/auth/news', {
+          "method": "POST",
+          "body": text,
+          "headers": new Headers({'Content-Type': 'text/plain'})
         })
         .then(response => response.json())
         .then(function(articleJson) {
-            $('#loader').css('display', 'none');
-            articlesAll = articleJson;
-            setAllArticles();
+          articlesAll = articleJson;
+          setAllArticles();
         });
 //            articlesAll = searchArticles;
 //            setAllArticles();
@@ -332,7 +330,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         }
     }
-    
+
     //find article from articlesAll array
     function findArticleFromAll(articleUrl) {
         for (let keyword of articlesAll) {
@@ -344,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         return null;
     }
-    
+
     //find article from savedArticles array
     function findArticleFromSaved(articleUrl){
         for(let article of savedArticles){
@@ -365,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         return false;
     }
-    
+
     function findArticlesFromKeyword(word){
         for(let keyword of articlesAll){
             if(keyword.word === word){
@@ -374,7 +372,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         return [];
     }
-    
+
     function showArticlesOfKeyword(articlesArr){
         for(let article of articlesArr){
             if(!containsArticle(article, savedArticles) || containsArticle(article, toBeRemovedArticles)){
@@ -382,5 +380,5 @@ document.addEventListener("DOMContentLoaded", function (event) {
             }
         }
     }
-    
+
 });

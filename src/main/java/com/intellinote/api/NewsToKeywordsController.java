@@ -21,7 +21,7 @@ import java.util.List;
  * @author Markus
  */
 @Controller
-@RequestMapping("/news")
+@RequestMapping("/auth/news")
 public class NewsToKeywordsController {
 
     NaturalLanguage nl = new NaturalLanguage();
