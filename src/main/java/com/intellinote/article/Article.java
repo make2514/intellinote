@@ -1,5 +1,6 @@
 package com.intellinote.article;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,9 @@ public class Article {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String author;
+    @Column(columnDefinition="text")
     private String title;
+    @Column(columnDefinition="text")
     private String description;
     private String url;
     private String urlToImage;
@@ -43,6 +46,10 @@ public class Article {
     public void setTitle(String title) {
         this.title = title;
     }
+    
+    public String getUrl() {
+        return url;
+    }
 
     public void setUrl(String url) {
         this.url = url;
@@ -63,11 +70,7 @@ public class Article {
     public void setAuthor(String author) {
         this.author = author;
     }
-
-    public String getUrl() {
-        return url;
-    }
-
+    
     public String getUrlToImage() {
         return urlToImage;
     }
