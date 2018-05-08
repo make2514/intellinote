@@ -168,6 +168,7 @@ footer {
 .greeting {
     font-size: 25px;
     margin-left: 1.6em;
+    text-transform: capitalize;
 }
 
 .new-note-btn {
@@ -188,7 +189,6 @@ a.btn:hover {
 
 .notes-heading {
     margin-left: 2.2em;
-    font-weight: bold;
     color: #222;
 }
 
@@ -223,10 +223,6 @@ a.btn:hover {
 #select-note-section {
     grid-area: section;
     padding: 1em;
-    display: grid;
-    grid-template-rows: 30% 70%;
-    grid-template-columns: %;
-    grid-template-areas: "head" "notes";
 }
 
 .note-name {
